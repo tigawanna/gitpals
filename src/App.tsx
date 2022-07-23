@@ -4,7 +4,7 @@ import { Routes, Route ,BrowserRouter} from "react-router-dom";
 import './App.css'
 import { Home } from './components/home/Home';
 import { Toolbar } from './components/Navigation/Toolbar/Toolbar';
-import { User } from './components/home/user/User';
+import { User } from './components/user/User';
 
 function App() {
   const [count, setCount] = useState(0)
