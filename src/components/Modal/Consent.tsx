@@ -14,7 +14,7 @@ return (
     <div className='consent-child'>
    <div className='h-full w-full flex flex-col'>
    <div className='h-full w-full flex flex-center text-3xl font-medium'>{message}</div>
-   <div className='h-full w-full flex-evenly'>
+   <div className='h-full w-full flex-evenly '>
     <button
       onClick={()=>{action();setOpen(false)}}
         className='consent-button'

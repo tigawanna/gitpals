@@ -5,11 +5,11 @@ import { Following } from '../people/Following';
 import { MainAuthedUser } from './../../types/UserTypes';
 
 
-interface HomeProps {
+interface ProfileProps {
 user:MainAuthedUser|undefined
 }
 
-export const Home: React.FC<HomeProps> = ({user}) => {
+export const Profile: React.FC<ProfileProps> = ({user}) => {
 
 return (
  <div className='h-full w-full  flex-col '>

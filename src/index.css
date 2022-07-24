@@ -21,8 +21,12 @@ code {
   @apply flex justify-center items-center
 }
 
-.flex-center-col{
+.flex-col-center{
   @apply flex flex-col justify-center items-center
+}
+
+.flex-evenly{
+  @apply flex justify-evenly items-center
 }
 .scroll-bar{
   @apply scrollbar-thin scrollbar-thumb-purple-900 scrollbar-track-gray-400

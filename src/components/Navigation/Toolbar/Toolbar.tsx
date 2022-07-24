@@ -5,12 +5,13 @@ import { Link} from "react-router-dom";
 import { FaUserCircle } from 'react-icons/fa';
 import { Consent } from '../../Modal/Consent';
 import { useState } from 'react';
+import { MainAuthedUser } from './../../../types/UserTypes';
 
 interface ToolbarProps {
-
+user:MainAuthedUser|undefined
 }
 
-export const Toolbar: React.FC<ToolbarProps> = () => {
+export const Toolbar: React.FC<ToolbarProps> = ({user}) => {
 const [open, setOpen] = useState(false)
 const actionTs=()=>{console.log("good")}
 
@@ -25,7 +26,9 @@ return (
      <div className='m-1 w-full p-3 bg-slate-400 flex-center'>
      <Link to="/"><GrHome /></Link>
      </div>
-  
+     <div className='m-1 w-full p-3 bg-slate-300 flex-center'>
+     <Link to="/profile">Profile</Link>
+     </div>  
       <div className='m-1 w-full p-3 bg-slate-300 flex-center'>
      <Link to="/user">User</Link>
      </div>
@@ -35,7 +38,12 @@ return (
      <div 
       onClick={()=>setOpen(true)}
      className='m-1   border-slate-900 border-2 rounded-md hover:bg-slate-700 flex-center'>
-    <FaUserCircle />
+    {/* <FaUserCircle /> */}
+    <img
+     className='max-h-16 w-fit m-1'
+     src={user?.avatar_url}
+     alt=""
+    />
      </div>
 
 </div>   
