@@ -2,8 +2,7 @@ import React from 'react'
 import { GrHome } from "react-icons/gr";
 import { IconContext } from "react-icons/lib";
 import { Link} from "react-router-dom";
-import { FaUserCircle } from 'react-icons/fa';
-import { Consent } from '../../Modal/Consent';
+;import { Consent } from '../../Modal/Consent';
 import { useState } from 'react';
 import { MainAuthedUser } from './../../../types/UserTypes';
 

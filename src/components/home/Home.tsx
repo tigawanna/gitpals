@@ -1,15 +1,15 @@
 import React, { useEffect, useMemo,useState } from 'react'
+import { followUser,unfollowUser,getIsUserFollowingMe } from '../../utils/githubapi';
 import { UserCard } from '../Cards/UserCard';
-import { Followers } from '../people/Followers';
-import { Following } from '../people/Following';
 import { MainAuthedUser } from './../../types/UserTypes';
 
 
 interface HomeProps {
 user:MainAuthedUser|undefined
+token:string
 }
 
-export const Home: React.FC<HomeProps> = ({user}) => {
+export const Home: React.FC<HomeProps> = ({user,token}) => {
 
 return (
  <div className='h-full w-full  flex-col '>
@@ -17,20 +17,8 @@ return (
 <UserCard user={user}/>
 </div>
 
-
-<div className='w-full  h-fit  flex-col p-2 bg-slate-200 font-sans'>
-<div className='text-lg font-bold'>Followers</div>
-<Followers url={user?.followers_url} relation={"folowers"}/>
+<button onClick={()=>{getIsUserFollowingMe(token,"tigawanna","Harmon758")}}>follow</button>
 </div>
-
-<div className='w-full  h-fit  flex-col p-2 bg-slate-200 font-sans'>
-<div className='text-lg font-bold'>Followers</div>
-<Following/>
-</div>
-
-
-
- </div>
 );
 }
  
