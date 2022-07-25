@@ -16,9 +16,7 @@ ogUser:MainAuthedUser|undefined
 export const TheirProfile: React.FC<TheirProfileProps> = ({token,ogUser}) => {
 // const followers_url ="https://api.github.com/user/following"
 const location = useLocation();
-useEffect(() => {
-window.scrollTo(0, 0);
-}, []);
+
 
 //@ts-ignore
 const dev = location.state?.dev as Follower

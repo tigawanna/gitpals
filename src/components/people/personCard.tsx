@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Follower } from '../../types/UserTypes';
 import UserContext from '../../utils/context';
 import { followUser, getIsUserFollowingMe, unfollowUser } from '../../utils/githubapi';
-import { MainAuthedUser } from './../../types/UserTypes';
+import { MainAuthedUser } from '../../types/UserTypes';
 
 
 interface PersonCardProps {
@@ -14,32 +14,31 @@ user:MainAuthedUser|undefined
 }
   
   export const PersonCard: React.FC<PersonCardProps> = ({ dev,token,user }) => {
-    const data = true
-    // const me = user?.login as string
-    // const them = dev?.login
-    //  const query = useQuery(["follow-status", token,me,them], () =>
-    //  getIsUserFollowingMe(token,me,them)
-    // );
-    
-    // console.log("me in the bag and dev ", me,them)
-    // const data = query.data
-    // console.log("me in the bag and dev ", me,them,data)
+  
+  const [yes, setYes] = useState<any>(dev?.following_me)  
 
-    const navigate = useNavigate();
+ const navigate = useNavigate();
     const showUserProfile = () => {
      navigate(`/profile/${dev.login}`, { state: { dev } });
     };
-
-    // if (query.isLoading) {
-    //     return <div className="h-full w-full  flex-center ">Loading....</div>;
-    // }
+ 
+    const followThem=(their_name:string,token:string)=>{
+  setYes(true)
+  followUser(their_name,token)
+ } 
+ const unfollowThem=(their_name:string,token:string)=>{
+  setYes(false)
+  unfollowUser(their_name,token)
+ } 
 
     return (
       <div
-        onClick={() => showUserProfile()}
-        className="h-fit w-[45%] md:w-[31%] lg:w-[15%] p-2 shadow shadow-black m-2 cursor-pointer"
+
+        className="h-fit w-[95%] md:w-[31%] lg:w-[15%] p-2 flex justify-between items-center shadow shadow-black hover:shadow-md m-2 "
       >
-        <div className=" flex items-center justify-evenly">
+        <div 
+        onClick={() => showUserProfile()}
+        className=" flex items-center justify-between min-w-[60%] cursor-pointer ">
           <img
             className="max-h-10  max-w-12  m-[2px] mr-2 rounded-[20%]"
             src={dev?.avatar_url}
@@ -49,17 +48,18 @@ user:MainAuthedUser|undefined
             @{dev?.login}
           </div>
           
-         {data?<button 
-           onClick={()=>unfollowUser(dev.login,token)}
-           className='bg-slate-600 text-white text-[13px] rounded-sm p-1'>
+
+        </div>
+        {yes?<button 
+           onClick={()=>unfollowThem(dev.login,token)}
+           className='bg-slate-600 hover:bg-slate-800 text-white hover:text-red-200 text-[10px] rounded-md p-[4px] m-[3px] h-fit'>
             {"Unfollow"}
           </button>:
           <button 
-          onClick={()=>followUser(dev.login,token)}
-           className='bg-slate-600 text-white text-[13px] rounded-sm p-1'>
+          onClick={()=>followThem(dev.login,token)}
+           className='bg-slate-600 hover:bg-slate-800 text-white hover:text-red-200 text-[10px] rounded-md p-[4px] m-[3px] h-fit '>
             {"Follow"}
             </button>}
-        </div>
       </div>
     );
   };

@@ -58,6 +58,7 @@ export interface MainAuthedUser {
     html_url: string
     followers_url: string
     following_url: string
+    following_me?:boolean
     gists_url: string
     starred_url: string
     subscriptions_url: string

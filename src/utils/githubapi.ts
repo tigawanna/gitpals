@@ -1,7 +1,6 @@
-
-
-
 import axios from 'axios'
+import { Follower, MainAuthedUser } from '../types/UserTypes'
+
 
 //get authed user , using personal access token 
 export const getAuthedUserDetails=async(token:string,url:string)=>{
@@ -17,7 +16,7 @@ export const getAuthedUserDetails=async(token:string,url:string)=>{
     // console.log("response == ",res)
 
     const user = res.data 
-    console.log("authed user == ",user)
+    // console.log("authed user == ",user)
     return user
 }
 
@@ -34,7 +33,7 @@ export const getAuthedUserFollowers=async(token:string,url:string)=>{
         // console.log("response == ",res)
     
         const user = res.data 
-        console.log("authed user == ",user)
+        // console.log("authed user == ",user)
         return user
     }
 
@@ -47,7 +46,7 @@ export const followUser = async(username:string,token:string)=>{
             "Content-Type": "application/json"
         },
     })
-    console.log("response after follow == ",res)
+    // console.log("response after follow == ",res)
 }
 
 export const unfollowUser = async(username:string,token:string)=>{
@@ -59,23 +58,63 @@ export const unfollowUser = async(username:string,token:string)=>{
             "Content-Type": "application/json"
         },
     })
-    console.log("response after follow == ",res)
+    // console.log("response after follow == ",res)
 }
 
 
 export const getIsUserFollowingMe=async(token:string,me:string,them:string)=>{
-    const res = await axios({
-           method: 'get',
-           url:`https://api.github.com/users/${me}/following/${them}`,
-           headers: {
-               Authorization: `Bearer ${token}`,
-               "Content-Type": "application/json"
-           },
-       })
-       console.log("response == ",res.status)
-       if(res.status === 204){ 
-        return true
-       }else{
-        return false
-       }
+ 
+
+        const res = await axios({
+            method: 'get',
+            url:`https://api.github.com/users/${me}/following/${them}`,
+            headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+            },
+        })
+        // console.log("response == ",res)
+        if(res.status === 204){ 
+         return true
+        }
+         return false
     }
+
+
+    export const getAuthedUserFeed=async(token:string)=>{
+        const res = await axios({
+               method: 'get',
+               url:` https://api.github.com/feeds`,
+               headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json"
+             },
+           })
+         const user = res.data 
+        // console.log("authed user == ",user)
+        return user
+       }
+
+       export const getUserWithFollowingDetails=async(token:string,url:string,username:string)=>{
+        let followers:any=[]
+         const users = await getAuthedUserFollowers(token,url) as Follower[]
+         for await (const user of users){
+         //@ts-ignore
+         user.following_me = await getIsUserFollowingMe(token,username,user.login)
+         .catch((e)=>{})
+         followers.push(user)
+         }
+         return followers
+        }
+      
+        export const getUserWithFollowerDetails=async(token:string,url:string,username:string)=>{
+            let followers:any=[]
+            const users = await getAuthedUserFollowers(token,url) as Follower[]
+            for await (const user of users){
+            //@ts-ignore
+            user.following_me = await getIsUserFollowingMe(token,username,user.login)
+            .catch((e)=>{})
+            followers.push(user)
+            }
+            return followers
+         }

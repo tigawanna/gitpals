@@ -1,9 +1,10 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { Follower, MainAuthedUser } from "../../types/UserTypes";
-import { getAuthedUserDetails } from "./../../utils/githubapi";
+import { getAuthedUserDetails, getUserWithFollowerDetails } from "./../../utils/githubapi";
 import { Link, useNavigate } from "react-router-dom";
 import { PersonCard } from "./personCard";
+
 
 interface FollowersProps {
   url?: string;
@@ -13,11 +14,14 @@ interface FollowersProps {
 
 export const Followers: React.FC<FollowersProps> = ({ url, token,user }) => {
   const link = url as string;
+  const username = user?.login  as string
 
-  const query = useQuery(["main-user-followers", token, link], () =>
-    getAuthedUserDetails(token, link)
+  const query = useQuery(["main-user-followers", token, link,username], () =>
+    getUserWithFollowerDetails(token,link,username)
   );
   const followers = query.data as Follower[];
+
+//  console.log("followers === ",followers)
 
   if (query.isLoading) {
     return <div className="h-full w-full  flex-center ">Loading....</div>;
