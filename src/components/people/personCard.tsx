@@ -1,9 +1,7 @@
-import { useState, useEffect, useContext } from 'react';
-import { useQuery } from 'react-query';
+import { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Follower } from '../../types/UserTypes';
-import UserContext from '../../utils/context';
-import { followUser, getIsUserFollowingMe, unfollowUser } from '../../utils/githubapi';
+import { followUser,unfollowUser } from '../../utils/githubapi';
 import { MainAuthedUser } from '../../types/UserTypes';
 
 
@@ -32,13 +30,11 @@ user:MainAuthedUser|undefined
  } 
 
     return (
-      <div
-
-        className="h-fit w-[95%] md:w-[31%] lg:w-[15%] p-2 flex justify-between items-center shadow shadow-black hover:shadow-md m-2 "
-      >
+      <div className="h-fit w-[45%] md:w-[31%] lg:w-[15%] p-2 flex 
+      ustify-between items-center shadow shadow-black hover:shadow-md m-2 ">
         <div 
         onClick={() => showUserProfile()}
-        className=" flex items-center justify-between min-w-[60%] cursor-pointer ">
+        className=" flex items-center justify-evenly min-w-[60%] cursor-pointer w-full">
           <img
             className="max-h-10  max-w-12  m-[2px] mr-2 rounded-[20%]"
             src={dev?.avatar_url}
@@ -50,6 +46,7 @@ user:MainAuthedUser|undefined
           
 
         </div>
+
         {yes?<button 
            onClick={()=>unfollowThem(dev.login,token)}
            className='bg-slate-600 hover:bg-slate-800 text-white hover:text-red-200 text-[10px] rounded-md p-[4px] m-[3px] h-fit'>

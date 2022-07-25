@@ -8,12 +8,12 @@ import { MainAuthedUser } from './../../../types/UserTypes';
 
 interface ToolbarProps {
 user:MainAuthedUser|undefined
+updateToken: (new_token: string | undefined) => void
 }
 
-export const Toolbar: React.FC<ToolbarProps> = ({user}) => {
+export const Toolbar: React.FC<ToolbarProps> = ({user,updateToken}) => {
 const [open, setOpen] = useState(false)
-const actionTs=()=>{console.log("good")}
-
+const actionTs=()=>{updateToken(undefined)}
 
 return (
  <div className='w-[100%] bg-slate-500 h-16 max-h-16'>

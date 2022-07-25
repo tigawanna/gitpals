@@ -118,3 +118,22 @@ export const getIsUserFollowingMe=async(token:string,me:string,them:string)=>{
             }
             return followers
          }
+
+         
+//get authed user , using personal access token 
+export const getAuthedUserRepository=async(token:string,url:string)=>{
+
+    const res = await axios({
+         method: 'get',
+         url: url,
+         headers: {
+             Authorization: `Bearer ${token}`,
+             "Content-Type": "application/json"
+         },
+     })
+     // console.log("response == ",res)
+ 
+     const user = res.data 
+     // console.log("authed user == ",user)
+     return user
+ }

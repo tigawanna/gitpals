@@ -1,6 +1,9 @@
 import React from 'react';
-
-const user_data = { user:{}, updateUser:(user:any)=>{}}
-const UserContext = React.createContext(user_data);
-export default UserContext;
+interface TokenType{
+token:string|undefined
+updateToken: (token?: string) => void
+}
+const token_data:TokenType = { token:undefined, updateToken:(token?:string)=>{}}
+const TokenContext = React.createContext(token_data);
+export default TokenContext;
 

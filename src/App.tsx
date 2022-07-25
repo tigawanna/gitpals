@@ -13,15 +13,26 @@ import { Profile } from './components/profile/Profile';
 const api = {
 token: import.meta.env.VITE_TOKEN,
 };import { TheirProfile } from './components/profile/TheirProfile';
-import UserContext from './utils/context';
+import TokenContext from './utils/context';
+import { ProtectedRoute } from './components/auth/PrivateRoutes';
+import { Login } from './components/auth/Login';
 
+
+let the_token:string|undefined
+const local_token = localStorage.getItem("user-token");
+if(local_token)
+the_token = JSON.parse(local_token); 
 
 function App() {
  const authed_user = "https://api.github.com/user" 
-const token = api.token
+// const token = api.token
 
+const [token, setToken] = useState<string|undefined>(the_token);
+const updateToken = (new_token:string|undefined) => {setToken(new_token)};
+const token_exists = token && token !==""
 
-const query = useQuery(['main-user',token],()=>getAuthedUserDetails(token,authed_user));
+const query_token = token as string
+const query = useQuery(['main-user',token],()=>getAuthedUserDetails(query_token,authed_user));
 const user = query.data as MainAuthedUser
 console.log("main query",query)
 
@@ -35,19 +46,35 @@ if (query.isLoading) {
     <div className="h-screen w-screen scroll-bar ">
 
        <BrowserRouter basename="/gitpals">
+       <TokenContext.Provider  value ={{token,updateToken}}>
         <div className="fixed top-[0px] w-[100%] z-60">
-          <Toolbar user={query.data}/>
+          <Toolbar user={query.data} updateToken={updateToken}/>
         </div>
         <div className="w-full h-full mt-20 ">
           <Routes>
-            
-            <Route path="/" element={ <Home user={user} token={token}/>} />
-            <Route path="/profile" element={ <Profile user={user} token={token}/>} />
-            <Route path="/profile/:id" element={ <TheirProfile token={token} ogUser={user}/>} />
-            <Route path="/user" element={ <User/>}/>
-            
+         
+            <Route path="/" element={ 
+               <ProtectedRoute token={token}>
+                <Home user={user} token={query_token}/>
+               </ProtectedRoute>
+       }       />
+
+       
+            <Route path="/profile" element={ 
+                 <ProtectedRoute token={token}>
+                  <Profile user={user} token={query_token}/>
+                 </ProtectedRoute>
+            } />
+            <Route path="/profile/:id" element={ 
+             <ProtectedRoute token={token}>
+              <TheirProfile token={query_token} ogUser={user}/>
+             </ProtectedRoute>
+            } />
+            <Route path="/login" element={ <Login/>}/>
+          
         </Routes>
         </div>
+        </TokenContext.Provider>
       </BrowserRouter>
   
     </div>
