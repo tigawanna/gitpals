@@ -28,7 +28,7 @@ export const Following: React.FC<FollowingProps> = ({ token, url,user }) => {
   }
 
  return (
-    <div className="h-fit w-full flex  flex-wrap">
+    <div className="h-fit w-full flex-center  flex-wrap">
       {followers &&
         followers.map((dev, index) => {
           return <PersonCard key={index} dev={dev} token={token} user={user}/>;

@@ -43,7 +43,7 @@ console.log("query in person profile === ",user)
 return (
     <div className='h-full w-full  flex-col '>
     <div className='w-full '>
-    <UserCard user={user}/>
+    <UserCard user={user} token={token} ogUser={ogUser}/>
     </div>
     <div className='w-full h-full'>
     <Repository token={token} username ={user?.login}/>

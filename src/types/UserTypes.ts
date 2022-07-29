@@ -38,6 +38,7 @@ export interface MainAuthedUser {
     collaborators: number
     two_factor_authentication: boolean
     plan: Plan
+    following_me?:boolean
   }
   
   export interface Plan {

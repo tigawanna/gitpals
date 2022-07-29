@@ -26,7 +26,7 @@ const followers_url =`https://api.github.com/users/${user?.login}/following`
 return (
  <div className='h-full w-full  flex-col '>
 <div className='w-full '>
-<UserCard user={user}/>
+<UserCard user={user} token={token} ogUser={ogUser}/>
 </div>
 
 

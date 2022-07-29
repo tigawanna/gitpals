@@ -32,7 +32,7 @@ if (query.isLoading) {
 return (
  <div className='h-full w-full  flex-col '>
 <div className='w-full '>
-<UserCard user={user}/>
+<UserCard user={user} token={token} ogUser={ogUser}/>
 </div>
 
 
