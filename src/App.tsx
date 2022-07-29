@@ -16,6 +16,7 @@ token: import.meta.env.VITE_TOKEN,
 import TokenContext from './utils/context';
 import { ProtectedRoute } from './components/auth/PrivateRoutes';
 import { Login } from './components/auth/Login';
+import { PersonProfile } from './components/people/PersonProfile';
 
 
 let the_token:string|undefined
@@ -62,12 +63,18 @@ if (query.isLoading) {
        
             <Route path="/profile" element={ 
                  <ProtectedRoute token={token}>
-                  <Profile user={user} token={query_token}/>
+                  <Profile ogUser={user} token={query_token}/>
                  </ProtectedRoute>
             } />
             <Route path="/profile/:id" element={ 
              <ProtectedRoute token={token}>
               <TheirProfile token={query_token} ogUser={user}/>
+             </ProtectedRoute>
+            } />
+
+            <Route path="/personprofile" element={ 
+             <ProtectedRoute token={token}>
+              <PersonProfile token={query_token} ogUser={user}/>
              </ProtectedRoute>
             } />
             <Route path="/login" element={ <Login/>}/>

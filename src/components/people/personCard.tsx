@@ -17,10 +17,10 @@ user:MainAuthedUser|undefined
 
  const navigate = useNavigate();
     const showUserProfile = () => {
-     navigate(`/profile/${dev.login}`, { state: { dev } });
+     navigate(`/personprofile`, { state: { dev } });
     };
  
-    const followThem=(their_name:string,token:string)=>{
+const followThem=(their_name:string,token:string)=>{
   setYes(true)
   followUser(their_name,token)
  } 
@@ -38,6 +38,7 @@ user:MainAuthedUser|undefined
           <img
             className="max-h-10  max-w-12  m-[2px] mr-2 rounded-[20%]"
             src={dev?.avatar_url}
+            loading="lazy"
             alt=""
           />
            <div className="text-[12px] font-semibold md:text-sm  break-all ">

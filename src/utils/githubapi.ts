@@ -137,3 +137,18 @@ export const getAuthedUserRepository=async(token:string,url:string)=>{
      // console.log("authed user == ",user)
      return user
  }
+
+ export const getUserByName=async(me:string,name:string,token:string)=>{
+    const res = await axios({
+        method: 'get',
+        url:`  https://api.github.com/users/${name}`,
+        headers: {
+       Authorization: `Bearer ${token}`,
+       "Content-Type": "application/json"
+      },
+    })
+  const user = res.data 
+  //@ts-ignore
+  user.following_me = await getIsUserFollowingMe(token,me,user.login).catch((e)=>{})
+  return user
+ }

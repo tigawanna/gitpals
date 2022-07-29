@@ -16,9 +16,10 @@ export const Followers: React.FC<FollowersProps> = ({ url, token,user }) => {
   const link = url as string;
   const username = user?.login  as string
 
-  const query = useQuery(["main-user-followers", token, link,username], () =>
+  const query = useQuery(["followers", token, link,username], () =>
     getUserWithFollowerDetails(token,link,username)
   );
+
   const followers = query.data as Follower[];
 
 //  console.log("followers === ",followers)

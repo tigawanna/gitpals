@@ -2,7 +2,8 @@ import React from 'react'
 import { useQuery } from 'react-query';
 import { RepoType } from '../../types/repo';
 import { getAuthedUserRepository } from './../../utils/githubapi';
-import dayjs from './../../../node_modules/dayjs/esm/index';
+import dayjs from 'dayjs';
+import {BiGitRepoForked} from 'react-icons/bi'
 
 interface RepositoryProps {
 username:string|undefined
@@ -24,8 +25,8 @@ export const Repository: React.FC<RepositoryProps> = ({username,token}) => {
   }  
 return (
 <div className="h-fit w-full flex-center flex-wrap">
-    {repos.map((one)=>{
-        return <RepoCard repo={one}/>
+    {repos.map((one,index)=>{
+        return <RepoCard repo={one} key={index+one.id}/>
     })}
 </div>
 );
@@ -55,11 +56,13 @@ return (
             {repo?.description}
           </div>
           <div className="w-full text-[15px] :text-sm  flex justify-between">
-          <div className="text-[15px] font-semibold md:text-sm ">forks: {repo?.forks_count}</div>
+     
           <div className="text-[12px] font-medium">
             last update: {dayjs(repo?.updated_at).format('DD/MM/YYYY')}</div>
           
           </div>
+          <div className='flex-center'><BiGitRepoForked/> {repo?.forks_count}</div>
+          
 
         </div>
 

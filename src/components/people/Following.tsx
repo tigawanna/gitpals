@@ -16,7 +16,7 @@ interface FollowingProps {
 export const Following: React.FC<FollowingProps> = ({ token, url,user }) => {
   const username = user?.login  as string
 
- const query = useQuery(["main-user-following", token, url], () =>
+ const query = useQuery(["following", token, url], () =>
     getUserWithFollowerDetails(token, url,username)
   );
 
