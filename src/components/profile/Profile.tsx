@@ -32,13 +32,13 @@ return (
 
 <div className='w-full  h-fit  flex-col p-2 bg-slate-200 font-sans'>
 <div className='text-lg font-bold'>Followers</div>
-<Followers url={user?.followers_url} token={token} user={user}/>
+<Followers url={user?.followers_url} token={token} user={user} ogUser={ogUser}/>
 </div>
 
-{/* <div className='w-full  h-fit  flex-col p-2 bg-slate-200 font-sans'>
+<div className='w-full  h-fit  flex-col p-2 bg-slate-200 font-sans'>
 <div className='text-lg font-bold'>Followers</div>
-<Following token={token} url={followers_url} user={user}/>
-</div> */}
+<Following token={token} url={followers_url} user={user} ogUser={ogUser}/>
+</div>
 
 
 

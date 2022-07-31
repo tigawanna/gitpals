@@ -1,8 +1,7 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { Follower, MainAuthedUser } from "../../types/UserTypes";
-import { getAuthedUserDetails, getUserWithFollowerDetails } from "./../../utils/githubapi";
-import { Link, useNavigate } from "react-router-dom";
+import { getUserWithFollowerDetails } from "./../../utils/githubapi";
 import { PersonCard } from "./personCard";
 
 
@@ -10,11 +9,12 @@ interface FollowersProps {
   url?: string;
   token: string;
   user:MainAuthedUser|undefined
+  ogUser:MainAuthedUser|undefined
 }
 
-export const Followers: React.FC<FollowersProps> = ({ url, token,user }) => {
+export const Followers: React.FC<FollowersProps> = ({ url, token,user,ogUser }) => {
   const link = url as string;
-  const username = user?.login  as string
+  const username = ogUser?.login  as string
 
   const query = useQuery(["followers", token, link,username], () =>
     getUserWithFollowerDetails(token,link,username)

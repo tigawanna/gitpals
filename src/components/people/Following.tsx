@@ -11,12 +11,13 @@ interface FollowingProps {
   token: string;
   url: string;
   user:MainAuthedUser|undefined
+  ogUser:MainAuthedUser|undefined
 }
 
-export const Following: React.FC<FollowingProps> = ({ token, url,user }) => {
-  const username = user?.login  as string
-
- const query = useQuery(["following", token, url], () =>
+export const Following: React.FC<FollowingProps> = ({ token, url,user,ogUser }) => {
+  
+const username = ogUser?.login  as string
+const query = useQuery(["following", token, url], () =>
     getUserWithFollowerDetails(token, url,username)
   );
 

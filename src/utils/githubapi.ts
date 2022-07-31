@@ -95,22 +95,27 @@ export const getIsUserFollowingMe=async(token:string,me:string,them:string)=>{
         return user
        }
 
-       export const getUserWithFollowingDetails=async(token:string,url:string,username:string)=>{
+export const getUserWithFollowingDetails = async (token: string, url: string, username: string) => {
+        console.log("user with following details ", username, url);
         let followers:any=[]
          const users = await getAuthedUserFollowers(token,url) as Follower[]
-         for await (const user of users){
+    for await (const user of users) {
+    // console.log("user with following details ",username,user.login);
          //@ts-ignore
-         user.following_me = await getIsUserFollowingMe(token,username,user.login)
+             user.following_me = await getIsUserFollowingMe(token, username, user.login)
+              
          .catch((e)=>{})
          followers.push(user)
          }
          return followers
         }
       
-        export const getUserWithFollowerDetails=async(token:string,url:string,username:string)=>{
+export const getUserWithFollowerDetails = async (token: string, url: string, username: string) => {
+
             let followers:any=[]
             const users = await getAuthedUserFollowers(token,url) as Follower[]
             for await (const user of users){
+                // console.log("user with follower details ",username,user.login);
             //@ts-ignore
             user.following_me = await getIsUserFollowingMe(token,username,user.login)
             .catch((e)=>{})
