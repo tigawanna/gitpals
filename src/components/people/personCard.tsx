@@ -30,13 +30,13 @@ const followThem=(their_name:string,token:string)=>{
  } 
 
     return (
-      <div className="h-fit w-[95%] md:w-[31%] lg:w-[20%] p-2 flex 
+      <div className="h-32 w-[95%] md:w-[31%] lg:w-[20%] p-2 flex 
       justify-between items-center shadow shadow-black hover:shadow-md m-2 ">
         <div 
         onClick={() => showUserProfile()}
         className=" flex items-center justify-between min-w-[60%] cursor-pointer w-full">
           <img
-            className="max-h-10  max-w-12  m-[2px] mr-2 rounded-[20%]"
+            className="max-h-14  max-w-24  m-[2px] mr-2 rounded-[20%]"
             src={dev?.avatar_url}
             loading="lazy"
             alt=""
