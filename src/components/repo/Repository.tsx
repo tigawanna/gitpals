@@ -57,7 +57,7 @@ return (
         </div>
         <div className="w-full text-[15px] text-sm  flex justify-between ">
            <div className="text-[12px] font-medium">
-            last update: {dayjs(repo?.updated_at).format('DD/MM/YYYY')}</div>
+            last update: {dayjs(repo?.pushed_at).format('DD/MM/YYYY')}</div>
             <div className='flex-center'><BiGitRepoForked/> {repo?.forks_count}</div>
             <div className='flex-center'><BiGitRepoForked/> {repo?.visibility}</div>
           </div>
