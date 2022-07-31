@@ -4,6 +4,7 @@ import { RepoType } from '../../types/repo';
 import { getAuthedUserRepository } from './../../utils/githubapi';
 import dayjs from 'dayjs';
 import {BiGitRepoForked} from 'react-icons/bi'
+import { useRepos } from './../../utils/hooks';
 
 interface RepositoryProps {
 username:string|undefined
@@ -11,12 +12,8 @@ token:string
 }
 
 export const Repository: React.FC<RepositoryProps> = ({username,token}) => {
-    const link = `https://api.github.com/users/${username}/repos`
-  const query = useQuery(["user-repository", token, link,username], () =>
-    getAuthedUserRepository(token,link)
-  );  
 
-  const repos = query.data as RepoType[];
+const {repos,query} = useRepos(token,username as string)
 
 
 
