@@ -1,11 +1,12 @@
 import React from 'react'
 import { useQuery } from 'react-query';
 import { RepoType } from '../../types/repo';
-import { getAuthedUserRepository } from './../../utils/githubapi';
+
 import dayjs from 'dayjs';
 import {BiGitRepoForked} from 'react-icons/bi'
 import { useRepos } from './../../utils/hooks';
-
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(relativeTime)
 interface RepositoryProps {
 username:string|undefined
 token:string
@@ -57,9 +58,9 @@ return (
         </div>
         <div className="w-full text-[15px] text-sm  flex justify-between ">
            <div className="text-[12px] font-medium">
-            last update: {dayjs(repo?.pushed_at).format('DD/MM/YYYY')}</div>
+            last update: {dayjs(repo?.pushed_at).fromNow()}</div>
             <div className='flex-center'><BiGitRepoForked/> {repo?.forks_count}</div>
-            <div className='flex-center'><BiGitRepoForked/> {repo?.visibility}</div>
+            <div className='flex-center'>{repo?.visibility}</div>
           </div>
 
  </div>
