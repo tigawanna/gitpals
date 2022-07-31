@@ -4,11 +4,18 @@
 
 #### uses github rest api and react with vite /br>
 
-
+scripts
 
 ```js
 npm run dev
 ```
+to start the dev server
+
+```js
+npm run deploy
+```
+To deploy your site to gitpages 
+> *this requires a bunch of initial set-up 
 
 Add add your github personal access token in the field , to clear it from local storage click on the profile pic icon on the right end of the toolbar</br>
 
