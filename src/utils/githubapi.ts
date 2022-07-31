@@ -143,6 +143,19 @@ export const getAuthedUserRepository=async(token:string,url:string)=>{
      return user
  }
 
+
+export const  getRepositoryCommits =async(token:string,reponame:string,owner:string)=>{
+    const url = ` https://api.github.com/repos/${owner}/${reponame}/commits`
+    const res = await axios({
+        method: 'get',
+        url: url,
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+    })
+}
+
  export const getUserByName=async(me:string,name:string,token:string)=>{
     const res = await axios({
         method: 'get',

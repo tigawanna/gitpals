@@ -1,11 +1,11 @@
-import React from 'react'
-import { useQuery } from 'react-query';
+import React, { useState } from 'react'
 import { RepoType } from '../../types/repo';
-
 import dayjs from 'dayjs';
 import {BiGitRepoForked} from 'react-icons/bi'
+import {FiActivity} from 'react-icons/fi'
 import { useRepos } from './../../utils/hooks';
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { SearchBox } from '../Shared/SearchBox';
 dayjs.extend(relativeTime)
 interface RepositoryProps {
 username:string|undefined
@@ -13,19 +13,30 @@ token:string
 }
 
 export const Repository: React.FC<RepositoryProps> = ({username,token}) => {
+const [keyword, setKeyword] = useState({word:''})
+const {repos,query} = useRepos(token,username as string,keyword.word)
 
-const {repos,query} = useRepos(token,username as string)
+console.log("in pepos === ",repos)
 
 
 
-  if (query.isLoading) {
-    return <div className="h-full w-full  flex-center ">Loading....</div>;
-  }  
+
+
+
+if (query.isLoading && !repos) {
+return <div className="h-full w-full  flex-center ">Loading....</div>;
+}  
+
 return (
-<div className="h-fit w-full flex-center flex-wrap">
+<div className="h-full w-full flex-col-center ">
+<div className='h-[10%] w-full flex-center'>
+<SearchBox keyword={keyword} setKeyword={setKeyword}/>
+</div>
+<div className="h-[80%] w-full flex-center flex-wrap">
     {repos.map((one,index)=>{
         return <RepoCard repo={one} key={index+one.id}/>
     })}
+</div>
 </div>
 );
 }
@@ -47,7 +58,7 @@ return (
            <div className="text-[25px] font-semibold md:text-xl md:font-bold  break-all ">
             {repo?.name}
           </div>
-          <div className="text-[20px] font-semibold md:text-sm  break-all ">
+          <div className="text-[15px] font-semibold md:text-sm  text-purple-700 break-all ">
             {repo?.language}
           </div>
           <div className="text-[14px] md:text-sm  break-all max-h-16 h-full overflow-y-clip">
@@ -57,10 +68,12 @@ return (
    
         </div>
         <div className="w-full text-[15px] text-sm  flex justify-between ">
-           <div className="text-[12px] font-medium">
-            last update: {dayjs(repo?.pushed_at).fromNow()}</div>
+           <div className="text-[12px] font-bold flex-center">
+           <FiActivity/>{" "}{dayjs(repo?.pushed_at).fromNow()}
+           </div>
             <div className='flex-center'><BiGitRepoForked/> {repo?.forks_count}</div>
             <div className='flex-center'>{repo?.visibility}</div>
+            <div className='flex-center'>{repo?.size} kbs</div>
           </div>
 
  </div>
