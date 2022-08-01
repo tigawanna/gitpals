@@ -4,10 +4,12 @@ import { FaSearch } from "react-icons/fa";
 
 interface SearchBoxProps {
   keyword: { word: string };
-  setKeyword: React.Dispatch<React.SetStateAction<{ word: string }>>;
+  setKeyword: React.Dispatch<React.SetStateAction<{ word: string }>>
+  action: () => any
+  title:string
 }
 
-export const SearchBox: React.FC<SearchBoxProps> = ({ keyword, setKeyword }) => {
+export const SearchBox: React.FC<SearchBoxProps> = ({ keyword, setKeyword , action,title }) => {
   const handleChange = async (e: any) => {
     const { value } = e.target;
     setKeyword({
@@ -17,14 +19,16 @@ export const SearchBox: React.FC<SearchBoxProps> = ({ keyword, setKeyword }) => 
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    action()
   };
   return (
-    <form onSubmit={handleSubmit} className="w-full p-1 flex-center">
-      <div className="flex-center w-[80%] md:w-[50%] border-black border-2 rounded-md ">
+    <div className="w-full flex-col-center">
+    <form onSubmit={handleSubmit} className="w-full flex-center">
+      <div className="flex-center w-[80%] md:w-[50%] border-black border rounded-md p-1">
         <input
-          className="w-[100%]  p-2 m-1 "
+          className="w-[100%]  p-1 mx-1"
           id="word"
-          placeholder="type.."
+          placeholder={title}
           onChange={handleChange}
           value={keyword.word}
           autoComplete={"off"}
@@ -32,7 +36,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({ keyword, setKeyword }) => 
         <button type="submit">
           <IconContext.Provider
             value={{
-              size: "30px",
+              size: "20px",
               className: "mx-1",
             }}
           >
@@ -41,5 +45,6 @@ export const SearchBox: React.FC<SearchBoxProps> = ({ keyword, setKeyword }) => 
         </button>
       </div>
     </form>
+    </div>
   );
 };

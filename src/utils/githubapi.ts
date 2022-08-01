@@ -170,3 +170,19 @@ export const  getRepositoryCommits =async(token:string,reponame:string,owner:str
   user.following_me = await getIsUserFollowingMe(token,me,user.login).catch((e)=>{})
   return user
  }
+
+
+ export const getUserByNameOrEmail=async(nameoremail:string,token:string)=>{
+  const res = await axios({
+      method: 'get',
+      url:`    https://api.github.com/search/users?q=${nameoremail}`,
+      headers: {
+     Authorization: `Bearer ${token}`,
+     "Content-Type": "application/json"
+    },
+  })
+const user = res.data 
+// //@ts-ignore
+// user.following_me = await getIsUserFollowingMe(token,me,user.login).catch((e)=>{})
+return user
+}

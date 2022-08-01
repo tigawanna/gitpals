@@ -15,7 +15,7 @@ token:string
 export const Repository: React.FC<RepositoryProps> = ({username,token}) => {
 const [keyword, setKeyword] = useState({word:''})
 const {repos,query} = useRepos(token,username as string,keyword.word)
-
+const action=()=>{}
 console.log("in pepos === ",repos)
 
 
@@ -30,7 +30,7 @@ return <div className="h-full w-full  flex-center ">Loading....</div>;
 return (
 <div className="h-full w-full flex-col-center ">
 <div className='h-[10%] w-full flex-center'>
-<SearchBox keyword={keyword} setKeyword={setKeyword}/>
+<SearchBox keyword={keyword} setKeyword={setKeyword} action={action} title={"search repo"}/>
 </div>
 <div className="h-[80%] w-full flex-center flex-wrap">
     {repos.map((one,index)=>{

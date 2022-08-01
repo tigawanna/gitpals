@@ -1,24 +1,21 @@
-import { useEffect, useState } from 'react'
+import {useState } from 'react'
 import { useQuery } from 'react-query';
 import { Routes, Route ,BrowserRouter} from "react-router-dom";
-
 import './App.css'
 import { Home } from './components/home/Home';
 import { Toolbar } from './components/Navigation/Toolbar/Toolbar';
-import { User } from './components/user/User';
 import { MainAuthedUser } from './types/UserTypes';
 import { getAuthedUserDetails } from './utils/githubapi';
 import { Profile } from './components/profile/Profile';
 
-const api = {
-token: import.meta.env.VITE_TOKEN,
-};import { TheirProfile } from './components/profile/TheirProfile';
+
 import TokenContext from './utils/context';
 import { ProtectedRoute } from './components/auth/PrivateRoutes';
 import { Login } from './components/auth/Login';
 import { PersonProfile } from './components/people/PersonProfile';
 
 
+const api = {token: import.meta.env.VITE_TOKEN};
 let the_token:string|undefined
 const local_token = localStorage.getItem("user-token");
 if(local_token)
@@ -49,7 +46,7 @@ if (query.isLoading) {
        <BrowserRouter basename="/gitpals">
        <TokenContext.Provider  value ={{token,updateToken}}>
         <div className="fixed top-[0px] w-[100%] z-60">
-          <Toolbar user={query.data} updateToken={updateToken}/>
+          <Toolbar user={query.data} updateToken={updateToken} token={query_token}/>
         </div>
         <div className="w-full h-full mt-20 ">
           <Routes>
@@ -66,11 +63,7 @@ if (query.isLoading) {
                   <Profile ogUser={user} token={query_token}/>
                  </ProtectedRoute>
             } />
-            <Route path="/profile/:id" element={ 
-             <ProtectedRoute token={token}>
-              <TheirProfile token={query_token} ogUser={user}/>
-             </ProtectedRoute>
-            } />
+    
 
             <Route path="/personprofile" element={ 
              <ProtectedRoute token={token}>
