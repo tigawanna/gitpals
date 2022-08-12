@@ -38,11 +38,15 @@ const user = query.data as MainAuthedUser
 console.log("main query",query)
 
 const [keyword, setKeyword] = useState({ word: "" });
+const {results, search_query} = useUserSearch(query_token, keyword.word);
+
 const action = () => {
   console.log("test query === ", keyword);
+  setKeyword({word:""})
+  // results.items = []
 };
 
-const results = useUserSearch(query_token, keyword.word);
+
 
 console.log("resulat from search == ",results)
 if (query.isLoading) {
@@ -66,6 +70,7 @@ if (query.isLoading) {
                 action={action}
                 title={"email or username"}
                 results={results}
+                search_query = {search_query}
               />
             </div>
           </div>
