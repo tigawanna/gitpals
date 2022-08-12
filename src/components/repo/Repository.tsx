@@ -17,12 +17,12 @@ export const Repository: React.FC<RepositoryProps> = ({username,token}) => {
 const [keyword, setKeyword] = useState({word:''})
 const {repos,query} = useRepos(token,username as string,keyword.word)
 const action = () => {
-  console.log("test query === ", keyword);
+  //console.log("test query === ", keyword);
   setKeyword({ word: "" });
   // results.items = []
 };
 
-console.log("in pepos === ",repos)
+// //console.log("in pepos === ",repos)
 const results:any = {}
 
 
@@ -56,11 +56,7 @@ repo:RepoType
 }
 
 export const RepoCard: React.FC<RepoCardProps> = ({repo}) => {
-  console.log("one repository  ===== ",repo.html_url)
- const navigate = useNavigate();
-const openInVscode=(link:string)=>{
-navigate(`https://vscode.dev/${link}`);
-}
+
 const vslink = `https://vscode.dev/${repo.html_url}`;
 return (
   <div

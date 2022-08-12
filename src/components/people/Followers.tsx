@@ -22,7 +22,7 @@ export const Followers: React.FC<FollowersProps> = ({ url, token,user,ogUser }) 
 
   const followers = query.data as Follower[];
 
-//  console.log("followers === ",followers)
+//  //console.log("followers === ",followers)
 
   if (query.isLoading) {
     return <div className="h-full w-full  flex-center ">Loading....</div>;

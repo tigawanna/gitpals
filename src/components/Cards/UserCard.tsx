@@ -17,7 +17,7 @@ const navigate = useNavigate();
 const [yes, setYes] = useState<any>(user?.following_me)
 const username = user?.login as string
 const admin = ogUser?.login === user?.login
-console.log("og user",admin)
+//console.log("og user",admin)
 const followThem=(their_name:string,token:string)=>{
     setYes(true)
     followUser(their_name,token)

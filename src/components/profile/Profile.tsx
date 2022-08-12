@@ -17,7 +17,7 @@ export const Profile: React.FC<ProfileProps> = ({ogUser,token}) => {
 const dev = location.state?.dev as PersonRouteProps   
 const user = dev as MainAuthedUser
 
-console.log(dev.login)
+//console.log(dev.login)
 // const followers_url ="https://api.github.com/user/following"
 const followers_url =`https://api.github.com/users/${user?.login}/following`
 

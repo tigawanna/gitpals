@@ -2,8 +2,7 @@ import React from "react";
 import { IconContext } from "react-icons";
 import { FaSearch , FaTimes} from "react-icons/fa";
 import { UseQueryResult } from "react-query";
-import { MatchedUser, SearchResult } from "../../types/UserTypes";
-import { useScreenSize } from "../../utils/hooks";
+import { SearchResult } from "../../types/UserTypes";
 import { ResultsList } from "./ResultsList";
 
 interface SearchBoxProps {
@@ -18,7 +17,7 @@ interface SearchBoxProps {
 export const SearchBox: React.FC<SearchBoxProps> = (
   { keyword, setKeyword , action,title,results , search_query}) => {
   //  const size = useScreenSize(window.innerWidth, window.innerHeight); 
-  //  console.log("sie of screen = === ",size) 
+  //  //console.log("sie of screen = === ",size) 
   const handleChange = async (e: any) => {
     const { value } = e.target;
     setKeyword({

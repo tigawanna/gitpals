@@ -60,7 +60,7 @@ return {results,search_query:query}
 };
 
 
-export default function useDebounce(value: string, delay_in_seconds: number = 5) {
+export default function useDebounce(value: string, delay_in_seconds: number = 1) {
   const [debouncedValue, setDebouncedValue] = React.useState(value);
 
   React.useEffect(() => {

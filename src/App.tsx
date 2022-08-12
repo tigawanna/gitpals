@@ -35,21 +35,21 @@ const token_exists = token && token !==""
 const query_token = token as string
 const query = useQuery(['main-user',token],()=>getAuthedUserDetails(query_token,authed_user));
 const user = query.data as MainAuthedUser
-console.log("main query",query)
+//console.log("main query",query)
 
 const [keyword, setKeyword] = useState({ word: "" });
 const {results, search_query} = useUserSearch(query_token, keyword.word);
 
 
 const action = () => {
-  console.log("test query === ", keyword);
+  //console.log("test query === ", keyword);
   setKeyword({word:""})
   // results.items = []
 };
 
 
 
-console.log("resulat from search == ",results)
+//console.log("resulat from search == ",results)
 if (query.isLoading) {
   return <div className="h-full w-full  flex-center ">Loading....</div>;
 }

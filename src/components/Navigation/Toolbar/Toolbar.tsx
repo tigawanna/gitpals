@@ -5,9 +5,8 @@ import { Link} from "react-router-dom";
 ;import { Consent } from '../../Modal/Consent';
 import { useState } from 'react';
 import { MainAuthedUser } from './../../../types/UserTypes';
-import { SearchBox } from '../../Shared/SearchBox';
-import useDebounce, { useUserSearch } from '../../../utils/hooks';
-import { ResultsList } from '../../Shared/ResultsList';
+import { useUserSearch } from '../../../utils/hooks';
+
 
 interface ToolbarProps {
 user:MainAuthedUser|undefined
@@ -19,10 +18,11 @@ export const Toolbar: React.FC<ToolbarProps> = ({user,updateToken,token}) => {
 const [open, setOpen] = useState(false)
 const [keyword, setKeyword] = useState({word:''})
 const actionTs=()=>{updateToken(undefined)}
-const action=()=>{console.log("test query === ",keyword)}
+const action=()=>{
+   console.log("test query === ",keyword)}
 
 const results = useUserSearch(token,keyword.word)
-console.log('user results === ',results)
+//console.log('user results === ',results)
 return (
  <div className='w-[100%] bg-slate-500 h-[60px] max-h-[50px] flex-center'>
 <IconContext.Provider value={{ size: "25px", className: "table-edit-icons" }} >

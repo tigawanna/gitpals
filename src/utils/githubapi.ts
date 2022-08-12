@@ -13,10 +13,10 @@ export const getAuthedUserDetails=async(token:string,url:string)=>{
             "Content-Type": "application/json"
         },
     })
-    // console.log("response == ",res)
+    // //console.log("response == ",res)
 
     const user = res.data 
-    // console.log("authed user == ",user)
+    // //console.log("authed user == ",user)
     return user
 }
 
@@ -30,10 +30,10 @@ export const getAuthedUserFollowers=async(token:string,url:string)=>{
                 "Content-Type": "application/json"
             },
         })
-        // console.log("response == ",res)
+        // //console.log("response == ",res)
     
         const user = res.data 
-        // console.log("authed user == ",user)
+        // //console.log("authed user == ",user)
         return user
     }
 
@@ -46,7 +46,7 @@ export const followUser = async(username:string,token:string)=>{
             "Content-Type": "application/json"
         },
     })
-    // console.log("response after follow == ",res)
+    // //console.log("response after follow == ",res)
 }
 
 export const unfollowUser = async(username:string,token:string)=>{
@@ -58,7 +58,7 @@ export const unfollowUser = async(username:string,token:string)=>{
             "Content-Type": "application/json"
         },
     })
-    // console.log("response after follow == ",res)
+    // //console.log("response after follow == ",res)
 }
 
 
@@ -73,7 +73,7 @@ export const getIsUserFollowingMe=async(token:string,me:string,them:string)=>{
             "Content-Type": "application/json"
             },
         })
-        // console.log("response == ",res)
+        // //console.log("response == ",res)
         if(res.status === 204){ 
          return true
         }
@@ -91,16 +91,16 @@ export const getIsUserFollowingMe=async(token:string,me:string,them:string)=>{
              },
            })
          const user = res.data 
-        // console.log("authed user == ",user)
+        // //console.log("authed user == ",user)
         return user
        }
 
 export const getUserWithFollowingDetails = async (token: string, url: string, username: string) => {
-        console.log("user with following details ", username, url);
+        //console.log("user with following details ", username, url);
         let followers:any=[]
          const users = await getAuthedUserFollowers(token,url) as Follower[]
     for await (const user of users) {
-    // console.log("user with following details ",username,user.login);
+    // //console.log("user with following details ",username,user.login);
          //@ts-ignore
              user.following_me = await getIsUserFollowingMe(token, username, user.login)
               
@@ -115,7 +115,7 @@ export const getUserWithFollowerDetails = async (token: string, url: string, use
             let followers:any=[]
             const users = await getAuthedUserFollowers(token,url) as Follower[]
             for await (const user of users){
-                // console.log("user with follower details ",username,user.login);
+                // //console.log("user with follower details ",username,user.login);
             //@ts-ignore
             user.following_me = await getIsUserFollowingMe(token,username,user.login)
             .catch((e)=>{})
@@ -136,10 +136,10 @@ export const getAuthedUserRepository=async(token:string,url:string)=>{
              "Content-Type": "application/json"
          },
      })
-     // console.log("response == ",res)
+     // //console.log("response == ",res)
  
      const user = res.data 
-     // console.log("authed user == ",user)
+     // //console.log("authed user == ",user)
      return user
  }
 
