@@ -55,9 +55,11 @@ repo:RepoType
 }
 
 export const RepoCard: React.FC<RepoCardProps> = ({repo}) => {
+  console.log("one repository  ===== ",repo.html_url)
+
 return (
     <div className="h-52 w-[95%] md:w-[40%] lg:w-[30%] p-5 flex-col 
-    ustify-between items-center shadow-lg shadow-slate-300  m-2 border-black border-2 rounded-md">
+     ustify-between items-center shadow-lg shadow-slate-300  m-2 border-black border-2 rounded-md">
         <div 
         onClick={() => {}}
         className=" flex-col items-center  justify-between  cursor-pointer h-[90%] w-full">

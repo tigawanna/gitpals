@@ -22,7 +22,7 @@ const location = useLocation();
 const dev = location.state?.dev as PersonRouteProps   
 const username = dev?.login  as string
 const me = ogUser?.login as string
-console.log(dev.login)
+console.log("incoming dev creds ",dev)
 
 const query = useQuery(["userbyname", token,username,me], () =>
 getUserByName(me,username,token,)

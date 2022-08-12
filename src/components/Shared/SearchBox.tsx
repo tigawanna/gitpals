@@ -31,7 +31,7 @@ export const SearchBox: React.FC<SearchBoxProps> = (
     action()
   };
   return (
-    <div className="w-full h-fit flex flex-col items-center bg-green-600">
+    <div className="w-full h-fit flex flex-col items-center">
       <form onSubmit={handleSubmit} className="w-full flex-center">
         <div className="flex-center w-[80%] md:w-[50%] border-black border rounded-md p-1">
           <input
@@ -61,8 +61,7 @@ export const SearchBox: React.FC<SearchBoxProps> = (
       {search_query?.isLoading ? (
         <div
           style={{ position: "fixed", top: "100px" }}
-          className=" w-[90%] md:w-[50%]  flex-center h-[10%] fixed top-[15%] bg-green-500 text-lg rounded"
-        >
+          className=" w-[90%] md:w-[50%]  flex-center h-[10%] fixed top-[15%] bg-slate-500 text-lg rounded">
           loading....
         </div>
       ) : null}
@@ -71,7 +70,7 @@ export const SearchBox: React.FC<SearchBoxProps> = (
       keyword.word !== "" ? (
         <div
           style={{ position: "fixed", top: "100px" }}
-          className=" w-[90%] md:w-[50%]   flex-center h-[10%] fixed top-[15%] bg-green-500  text-lg rounded"
+          className=" w-[90%] md:w-[50%]   flex-center h-[10%] fixed top-[15%] bg-slate-500  text-lg rounded"
         >
           item not found , try different key words
         </div>
@@ -79,9 +78,8 @@ export const SearchBox: React.FC<SearchBoxProps> = (
       {results?.total_count > 0 && keyword.word !== "" ? (
         <div
           style={{ position: "fixed", top: "100px" }}
-          className=" w-[95%] md:w-[50%]   flex-center h-[70%] fixed top-[15%] bg-green-500"
-        >
-          <ResultsList results={results?.items} />
+          className=" w-[95%] md:w-[50%]   flex-center h-[70%] fixed top-[15%] ">
+          <ResultsList results={results?.items} setKeyword={setKeyword}/>
         </div>
       ) : null}
     </div>
