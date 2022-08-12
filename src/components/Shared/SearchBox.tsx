@@ -3,6 +3,7 @@ import { IconContext } from "react-icons";
 import { FaSearch , FaTimes} from "react-icons/fa";
 import { UseQueryResult } from "react-query";
 import { MatchedUser, SearchResult } from "../../types/UserTypes";
+import { useScreenSize } from "../../utils/hooks";
 import { ResultsList } from "./ResultsList";
 
 interface SearchBoxProps {
@@ -16,6 +17,8 @@ interface SearchBoxProps {
 
 export const SearchBox: React.FC<SearchBoxProps> = (
   { keyword, setKeyword , action,title,results , search_query}) => {
+  //  const size = useScreenSize(window.innerWidth, window.innerHeight); 
+  //  console.log("sie of screen = === ",size) 
   const handleChange = async (e: any) => {
     const { value } = e.target;
     setKeyword({
@@ -56,19 +59,28 @@ export const SearchBox: React.FC<SearchBoxProps> = (
         </div>
       </form>
       {search_query?.isLoading ? (
-        <div className=" w-[50%]  flex-center h-[10%] fixed top-[15%] bg-green-500 text-lg rounded">
+        <div
+          style={{ position: "fixed", top: "100px" }}
+          className=" w-[90%] md:w-[50%]  flex-center h-[10%] fixed top-[15%] bg-green-500 text-lg rounded"
+        >
           loading....
         </div>
       ) : null}
       {search_query?.isFetched &&
       results?.total_count === 0 &&
       keyword.word !== "" ? (
-        <div className=" w-[50%]  flex-center h-[10%] fixed top-[15%] bg-green-500  text-lg rounded">
+        <div
+          style={{ position: "fixed", top: "100px" }}
+          className=" w-[90%] md:w-[50%]   flex-center h-[10%] fixed top-[15%] bg-green-500  text-lg rounded"
+        >
           item not found , try different key words
         </div>
       ) : null}
       {results?.total_count > 0 && keyword.word !== "" ? (
-        <div className=" w-[50%]  flex-center h-[70%] fixed top-[15%] bg-green-500">
+        <div
+          style={{ position: "fixed", top: "100px" }}
+          className=" w-[95%] md:w-[50%]   flex-center h-[70%] fixed top-[15%] bg-green-500"
+        >
           <ResultsList results={results?.items} />
         </div>
       ) : null}

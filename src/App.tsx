@@ -13,7 +13,7 @@ import TokenContext from './utils/context';
 import { ProtectedRoute } from './components/auth/PrivateRoutes';
 import { Login } from './components/auth/Login';
 import { PersonProfile } from './components/people/PersonProfile';
-import { useUserSearch } from './utils/hooks';
+import { useScreenSize, useUserSearch } from './utils/hooks';
 import { SearchBox } from './components/Shared/SearchBox';
 import { ResultsList } from './components/Shared/ResultsList';
 
@@ -39,6 +39,7 @@ console.log("main query",query)
 
 const [keyword, setKeyword] = useState({ word: "" });
 const {results, search_query} = useUserSearch(query_token, keyword.word);
+
 
 const action = () => {
   console.log("test query === ", keyword);
@@ -76,7 +77,7 @@ if (query.isLoading) {
           </div>
 
 
-          <div className="w-full h-full mt-20 ">
+          <div className="w-full h-full mt-44 ">
             <Routes>
               <Route
                 path="/"

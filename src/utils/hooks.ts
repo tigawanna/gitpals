@@ -76,3 +76,14 @@ export default function useDebounce(value: string, delay_in_seconds: number = 5)
 
   return debouncedValue;
 }
+
+
+export const useScreenSize=(x:number,y:number)=>{
+ const [size, setSize] = useState({x,y});
+ const updateSize = () =>setSize({x,y});
+
+ useEffect(() => {
+   window.onresize = updateSize
+ })
+return size
+}
