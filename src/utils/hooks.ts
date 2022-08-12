@@ -42,17 +42,18 @@ export const useRepos = (token: string, username: string, keyword: string) => {
 
 
 
-export const useUserSearch = (token: string, nameoremail: string) => {
+export const useUserSearch = (token: string, keyword: string) => {
+const debouncedValue = useDebounce(keyword, 3);
 const query = useQuery(
-    ["user-serached", token,nameoremail],
-    () => getUserByNameOrEmail(nameoremail,token),
-    {
-      // select: (repos) =>
-      //   repos.filter((repo: RepoType) =>
-      //     repo.name.toLowerCase().includes(keyword.toLowerCase())
-      //   ),
-    }
-  );
+  ["user-serached", token, debouncedValue],
+  () => getUserByNameOrEmail(debouncedValue ,token),
+  {
+    // select: (repos) =>
+    //   repos.filter((repo: RepoType) =>
+    //     repo.name.toLowerCase().includes(keyword.toLowerCase())
+    //   ),
+  }
+);
 const results = query.data as SearchResult
 return results
 };

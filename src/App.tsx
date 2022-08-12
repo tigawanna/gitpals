@@ -13,6 +13,9 @@ import TokenContext from './utils/context';
 import { ProtectedRoute } from './components/auth/PrivateRoutes';
 import { Login } from './components/auth/Login';
 import { PersonProfile } from './components/people/PersonProfile';
+import { useUserSearch } from './utils/hooks';
+import { SearchBox } from './components/Shared/SearchBox';
+import { ResultsList } from './components/Shared/ResultsList';
 
 
 const api = {token: import.meta.env.VITE_TOKEN};
@@ -34,51 +37,75 @@ const query = useQuery(['main-user',token],()=>getAuthedUserDetails(query_token,
 const user = query.data as MainAuthedUser
 console.log("main query",query)
 
+const [keyword, setKeyword] = useState({ word: "" });
+const action = () => {
+  console.log("test query === ", keyword);
+};
 
+const results = useUserSearch(query_token, keyword.word);
 
+console.log("resulat from search == ",results)
 if (query.isLoading) {
   return <div className="h-full w-full  flex-center ">Loading....</div>;
 }
 
   return (
-    <div className="h-screen w-screen scroll-bar ">
+    <div className="h-screen w-screen scroll-bar flex-col-center">
+      <BrowserRouter basename="/gitpals">
+        <TokenContext.Provider value={{ token, updateToken }}>
+          <div className="fixed top-[0px] w-[100%] z-60">
+            <Toolbar
+              user={query.data}
+              updateToken={updateToken}
+              token={query_token}
+            />
+            <div className="h-full w-[100%]  flex-col-center font-normal ">
+              <SearchBox
+                keyword={keyword}
+                setKeyword={setKeyword}
+                action={action}
+                title={"email or username"}
+                results={results}
+              />
+            </div>
+          </div>
 
-       <BrowserRouter basename="/gitpals">
-       <TokenContext.Provider  value ={{token,updateToken}}>
-        <div className="fixed top-[0px] w-[100%] z-60">
-          <Toolbar user={query.data} updateToken={updateToken} token={query_token}/>
-        </div>
-        <div className="w-full h-full mt-20 ">
-          <Routes>
-         
-            <Route path="/" element={ 
-               <ProtectedRoute token={token}>
-                <Home user={user} token={query_token}/>
-               </ProtectedRoute>
-       }       />
 
-       
-            <Route path="/profile" element={ 
-                 <ProtectedRoute token={token}>
-                  <Profile ogUser={user} token={query_token}/>
-                 </ProtectedRoute>
-            } />
-    
+          <div className="w-full h-full mt-20 ">
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute token={token}>
+                    <Home user={user} token={query_token} />
+                  </ProtectedRoute>
+                }
+              />
 
-            <Route path="/personprofile" element={ 
-             <ProtectedRoute token={token}>
-              <PersonProfile token={query_token} ogUser={user}/>
-             </ProtectedRoute>
-            } />
-            <Route path="/login" element={ <Login/>}/>
-          
-        </Routes>
-        </div>
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute token={token}>
+                    <Profile ogUser={user} token={query_token} />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/personprofile"
+                element={
+                  <ProtectedRoute token={token}>
+                    <PersonProfile token={query_token} ogUser={user} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/login" element={<Login />} />
+            </Routes>
+          </div>
         </TokenContext.Provider>
       </BrowserRouter>
-  
     </div>
-  )
+  );
 }
 
 export default App

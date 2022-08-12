@@ -3,11 +3,12 @@ import { MatchedUser } from '../../types/UserTypes';
 
 interface ResultsListProps {
 results:MatchedUser[]
+
 }
 
 export const ResultsList: React.FC<ResultsListProps> = ({results}) => {
 return (
-<div className='w-full flex-col-center bg-slate-200 overflow-y-scroll max-h-[60%]'>
+<div className='w-[100%] flex flex-col items-center bg-slate-200 max-h-[80%] overflow-y-scroll scroll-bar'>
 {
 results&&results.map((result,index)=>{
 return (

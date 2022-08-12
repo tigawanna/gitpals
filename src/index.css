@@ -29,7 +29,7 @@ code {
   @apply flex justify-evenly items-center
 }
 .scroll-bar{
-  @apply scrollbar-thin scrollbar-thumb-purple-900 scrollbar-track-gray-400
+  @apply scrollbar-thin scrollbar-thumb-purple-600 scrollbar-track-gray-200
 }
 
 
