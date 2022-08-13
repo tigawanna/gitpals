@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { RepoType } from '../../types/repo';
 import dayjs from 'dayjs';
-import {BiGitRepoForked} from 'react-icons/bi'
+import { BiGitRepoForked, BiLinkExternal } from "react-icons/bi";
 import {FiActivity} from 'react-icons/fi'
+import { SiVisualstudiocode, SiGithub } from "react-icons/si";
 import { useRepos } from './../../utils/hooks';
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { SearchBox } from '../Shared/SearchBox';
-import { Link, useNavigate } from 'react-router-dom';
-import { authedurl } from './repoutil';
+import { TheIcon } from '../Shared/TheIcon';
+
 dayjs.extend(relativeTime)
 interface RepositoryProps {
 username:string|undefined
@@ -67,33 +68,39 @@ return (
     className="h-52 w-[95%] md:w-[40%] lg:w-[30%] p-5 flex-col 
      ustify-between items-center shadow-lg shadow-slate-300  m-2 border-black border-2 rounded-md"
   >
-    <a target="_blank" href={vslink}>
-      <div
-        onClick={() => {}}
-        className=" flex-col items-center  justify-between  cursor-pointer h-[90%] w-full"
-      >
-        <div className="text-[25px] font-semibold md:text-xl md:font-bold  break-all ">
-          {repo?.name}
-        </div>
-        <div className="text-[15px] font-semibold md:text-sm  text-purple-700 break-all ">
-          {repo?.language}
-        </div>
-        <div className="text-[14px] md:text-sm  break-all max-h-16 h-full overflow-y-clip">
-          {repo?.description}
-        </div>
+    <div
+      onClick={() => {}}
+      className=" flex-col items-center  justify-between  cursor-pointer h-[90%] w-full"
+    >
+      <div className="text-[25px] font-semibold md:text-xl md:font-bold  break-all ">
+        {repo?.name}
       </div>
+      <div className="text-[15px] font-semibold md:text-sm  text-purple-700 break-all ">
+        {repo?.language}
+      </div>
+      <div className="text-[14px] md:text-sm  break-all max-h-16 h-full overflow-y-clip">
+        {repo?.description}
+      </div>
+    </div>
 
-      <div className="w-full text-[15px] text-sm  flex justify-between ">
-        <div className="text-[12px] font-bold flex-center">
-          <FiActivity /> {dayjs(repo?.pushed_at).fromNow()}
-        </div>
-        <div className="flex-center">
-          <BiGitRepoForked /> {repo?.forks_count}
-        </div>
-        <div className="flex-center">{repo?.visibility}</div>
-        <div className="flex-center">{repo?.size} kbs</div>
+    <div className="w-full text-[15px] text-sm  flex justify-between ">
+      <div className="text-[12px] font-bold flex-center">
+        <FiActivity /> {dayjs(repo?.pushed_at).fromNow()}
       </div>
-    </a>
+      <div className="flex-center">
+        <BiGitRepoForked /> {repo?.forks_count}
+      </div>
+      <div className="flex-center">{repo?.visibility}</div>
+      <div className="flex-center">{repo?.size} kbs</div>
+      <div className="flex-center">
+        <a target="_blank" href={vslink}>
+          <TheIcon Icon={SiVisualstudiocode} size={"18"} color={"black"} />
+        </a>
+        <a target="_blank" href={repo.html_url}>
+          <TheIcon Icon={SiGithub} size={"18"} color={"black"} />
+        </a>
+      </div>
+    </div>
   </div>
 );
 }

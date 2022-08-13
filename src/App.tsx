@@ -16,6 +16,7 @@ import { PersonProfile } from './components/people/PersonProfile';
 import { useScreenSize, useUserSearch } from './utils/hooks';
 import { SearchBox } from './components/Shared/SearchBox';
 import { ResultsList } from './components/Shared/ResultsList';
+import { Test } from './components/test/Test';
 
 
 const api = {token: import.meta.env.VITE_TOKEN};
@@ -64,18 +65,17 @@ if (query.isLoading) {
               updateToken={updateToken}
               token={query_token}
             />
-            <div className="h-full w-[100%]  flex-col-center font-normal ">
+            <div className="h-full w-[100%] mt-[4px] flex-col-center font-normal ">
               <SearchBox
                 keyword={keyword}
                 setKeyword={setKeyword}
                 action={action}
                 title={"email or username"}
                 results={results}
-                search_query = {search_query}
+                search_query={search_query}
               />
             </div>
           </div>
-
 
           <div className="w-full h-full mt-44 ">
             <Routes>
@@ -106,6 +106,7 @@ if (query.isLoading) {
                 }
               />
               <Route path="/login" element={<Login />} />
+              <Route path="/test" element={<Test />} />
             </Routes>
           </div>
         </TokenContext.Provider>
