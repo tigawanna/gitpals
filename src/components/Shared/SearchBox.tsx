@@ -60,7 +60,7 @@ export const SearchBox: React.FC<SearchBoxProps> = (
       {search_query?.isLoading ? (
         <div
           style={{ position: "fixed", top: "100px" }}
-          className=" w-[90%] md:w-[50%]  flex-center h-[10%] fixed top-[15%] bg-slate-500 text-lg rounded">
+          className=" w-[90%] md:w-[50%]  flex-center h-[10%] fixed top-[15%] bg-slate-200 text-lg rounded">
           loading....
         </div>
       ) : null}
@@ -69,9 +69,9 @@ export const SearchBox: React.FC<SearchBoxProps> = (
       keyword.word !== "" ? (
         <div
           style={{ position: "fixed", top: "100px" }}
-          className=" w-[90%] md:w-[50%]   flex-center h-[10%] fixed top-[15%] bg-slate-500  text-lg rounded"
+          className=" w-[90%] md:w-[50%]   flex-center h-[10%] fixed top-[15%] bg-slate-200  text-lg rounded"
         >
-          item not found , try different key words
+          no matches, try different key words
         </div>
       ) : null}
       {results?.total_count > 0 && keyword.word !== "" ? (

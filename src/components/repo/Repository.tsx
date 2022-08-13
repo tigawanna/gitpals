@@ -7,6 +7,7 @@ import { useRepos } from './../../utils/hooks';
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { SearchBox } from '../Shared/SearchBox';
 import { Link, useNavigate } from 'react-router-dom';
+import { authedurl } from './repoutil';
 dayjs.extend(relativeTime)
 interface RepositoryProps {
 username:string|undefined
@@ -34,15 +35,15 @@ return <div className="h-full w-full  flex-center ">Loading....</div>;
 }  
 
 return (
-<div className="h-full w-full flex-col-center ">
-<div className='h-[10%] w-full flex-center'>
+<div className="min-h-fit w-full flex flex-col justify-between">
+<div className='h-[10%] w-full flex-center my-5'>
 <SearchBox keyword={keyword} setKeyword={setKeyword} action={action} title={"search repo"}
 results={results} search_query={query}
 />
 </div>
-<div className="h-[80%] w-full flex-center flex-wrap">
+<div className="h-[80%] w-full flex-center flex-wrap  mb-1">
     {repos.map((one,index)=>{
-        return <RepoCard repo={one} key={index+one.id}/>
+        return <RepoCard repo={one} key={index+one.id} token={token}/>
     })}
 </div>
 </div>
@@ -53,11 +54,14 @@ results={results} search_query={query}
 
 interface RepoCardProps {
 repo:RepoType
+token:string
 }
 
-export const RepoCard: React.FC<RepoCardProps> = ({repo}) => {
-
+export const RepoCard: React.FC<RepoCardProps> = ({repo,token}) => {
+// console.log(repo.html_url)
+// const repo_link = authedurl(repo.html_url,token)
 const vslink = `https://vscode.dev/${repo.html_url}`;
+
 return (
   <div
     className="h-52 w-[95%] md:w-[40%] lg:w-[30%] p-5 flex-col 

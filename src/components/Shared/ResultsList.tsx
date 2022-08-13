@@ -42,8 +42,8 @@ export const ResultsCard: React.FC<ResultsCardProps> = ({result,setKeyword}) => 
 return (
   <div
     onClick={()=>navigateToProfile()}
-    className="w-[100%] m-[2px] p-1 bg-slate-700  rounded-lg shadow-slate-600 
-  hover:bg-slate-600 shadow flex cursor-pointer"
+    className="w-[100%] m-[2px] p-1 bg-slate-100  rounded-lg shadow-slate-600 
+  hover:bg-slate-200 shadow flex cursor-pointer"
   >
     <img
       className="max-h-14  max-w-24  m-[2px] mr-2 rounded-[20%]"

@@ -24,16 +24,21 @@ const action=()=>{
 const results = useUserSearch(token,keyword.word)
 //console.log('user results === ',results)
 return (
- <div className='w-[100%] bg-slate-500 h-[60px] max-h-[50px] flex-center'>
-<IconContext.Provider value={{ size: "25px", className: "table-edit-icons" }} >
+  <div className="w-[100%] bg-slate-500 h-[60px] max-h-[50px] flex-center">
+    <IconContext.Provider
+      value={{ size: "25px", className: "table-edit-icons" }}
+    >
+      {open ? (
+        <Consent setOpen={setOpen} message={"Sign Out?"} action={actionTs} />
+      ) : null}
 
-{open?<Consent setOpen={setOpen} message={"Sign Out?"} action={actionTs}/>:null}
-
- <div className='flex-center w-full text-lg font-bold'>
-     <div className='w-[30%] p-3 bg-slate-400 flex-center'>
-     <Link to="/"><GrHome /></Link>
-     </div>
-   {/* <div className='h-full w-[80%]  flex-col-center font-normal '>
+      <div className="flex items-center justify-between w-full text-lg font-bold">
+        <div className="w-fit p-3 bg-slate-400 flex-center">
+          <Link to="/">
+            <GrHome />
+          </Link>
+        </div>
+        {/* <div className='h-full w-[80%]  flex-col-center font-normal '>
    <SearchBox keyword={keyword} setKeyword={setKeyword} action={action} title={"email or username"}/>
    </div>
   {results?.total_count>0 || keyword.word!==""?
@@ -41,19 +46,18 @@ return (
    <ResultsList results={results?.items}/>
    </div>:null} */}
 
-  <div 
-      onClick={()=>setOpen(true)}
-     className='h-[45px]  hover:bg-slate-700 flex-center m-1'>
-    {/* <FaUserCircle /> */}
-    <img
-     className='h-[100%] w-fit rounded-md m-1'
-     src={user?.avatar_url}
-     alt=""
-    />
-     </div>
-
-</div>   
-</IconContext.Provider>
- </div>
+        <div
+          onClick={() => setOpen(true)}
+          className="h-[45px]  hover:bg-slate-700 flex-center m-1">
+          {/* <FaUserCircle /> */}
+          <img
+            className="h-[80%] w-fit rounded-[50%] m-1 border border-white"
+            src={user?.avatar_url}
+            alt=""
+          />
+        </div>
+      </div>
+    </IconContext.Provider>
+  </div>
 );
 }
