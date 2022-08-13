@@ -1,0 +1,11 @@
+query getMiniUser($name: String!) {
+  user(login: $name) {
+    login
+    id
+    isFollowingViewer
+    bio
+    avatarUrl
+    isViewer
+    url
+  }
+}

@@ -6,6 +6,9 @@ getUserWithFollowerDetails,
 } from "./../../utils/githubapi";
 import { useNavigate } from "react-router-dom";
 import { PersonCard } from "./personCard";
+import { useGitGQLQuery } from "./utils/gql";
+import { FOLLOWERS } from "./utils/queries";
+import { FOLLOWER } from "./utils/types";
 
 interface FollowingProps {
   token: string;
@@ -17,11 +20,15 @@ interface FollowingProps {
 export const Following: React.FC<FollowingProps> = ({ token, url,user,ogUser }) => {
   
 const username = ogUser?.login  as string
-const query = useQuery(["following", token, url], () =>
-    getUserWithFollowerDetails(token, url,username)
-  );
+// const query = useQuery(["following", token, url], () =>
+//     getUserWithFollowerDetails(token, url,username)
+//   );
 
-  const followers = query.data as Follower[];
+//   const followers = query.data as Follower[];
+const query = useGitGQLQuery(["following", user?.login as string], token, FOLLOWERS, {
+    name: user?.login,
+  });
+  const followers = query?.data?.user?.followers?.edges as FOLLOWER[];
 
 // //console.log("followers === ",followers)
   if (query.isLoading) {
@@ -32,7 +39,7 @@ const query = useQuery(["following", token, url], () =>
     <div className="h-fit w-full flex-center  flex-wrap">
       {followers &&
         followers.map((dev, index) => {
-          return <PersonCard key={index} dev={dev} token={token} user={user}/>;
+          return <PersonCard key={index} dev={dev?.node} token={token} user={user}/>;
         })}
     </div>
   );
