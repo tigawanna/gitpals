@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Follower } from '../../types/UserTypes';
 import { followUser,unfollowUser } from '../../utils/githubapi';
 import { MainAuthedUser } from '../../types/UserTypes';
 import { useGitGQLQuery } from './utils/gql';
@@ -44,7 +43,7 @@ const followThem=(their_name:string,token:string)=>{
   }
     return (
       <div
-        className="h-32 w-[95%] md:w-[31%] lg:w-[20%] p-2 flex 
+        className="h-32 w-[95%] md:w-[31%] lg:w-[25%] p-2 flex 
       justify-evenly items-center shadow shadow-black hover:shadow-md m-2 "
       >
         <div
@@ -57,11 +56,14 @@ const followThem=(their_name:string,token:string)=>{
             loading="lazy"
             alt=""
           />
-          <div className="flex flex-col  w-[80%]">
+          <div className="flex flex-col  w-[80%] ">
             <div className="text-[12px] font-bold md:text-[16px]  break-all w-100%]">
               @{dev?.login}
             </div>
-            <div className="text-[12px] font-normal md:text-sm  break-word w-[100%]">
+            <div
+              className="text-[12px]  max-h-[90px] font-normal 
+              md:text-[12px] break-all w-[100%] text-ellipsis overflow-hidden"
+            >
               {miniuser?.bio}
             </div>
           </div>

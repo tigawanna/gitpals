@@ -65,7 +65,7 @@ if (query.isLoading) {
               updateToken={updateToken}
               token={query_token}
             />
-            <div className="h-full w-[100%] mt-[4px] flex-col-center font-normal ">
+            <div className="h-full w-[100%] mt-[3px] flex-col-center font-normal bg-slate-50 ">
               <SearchBox
                 keyword={keyword}
                 setKeyword={setKeyword}

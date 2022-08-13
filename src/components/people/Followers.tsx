@@ -1,7 +1,5 @@
 import React from "react";
-import { useQuery } from "react-query";
-import { Follower, MainAuthedUser } from "../../types/UserTypes";
-import { getUserWithFollowerDetails } from "./../../utils/githubapi";
+import {MainAuthedUser } from "../../types/UserTypes";
 import { PersonCard } from "./personCard";
 import { useGitGQLQuery } from './utils/gql';
 import { FOLLOWERS } from "./utils/queries";
