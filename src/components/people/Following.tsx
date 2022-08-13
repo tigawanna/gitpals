@@ -7,7 +7,7 @@ getUserWithFollowerDetails,
 import { useNavigate } from "react-router-dom";
 import { PersonCard } from "./personCard";
 import { useGitGQLQuery } from "./utils/gql";
-import { FOLLOWERS } from "./utils/queries";
+import { FOLLOWING } from "./utils/queries";
 import { FOLLOWER } from "./utils/types";
 
 interface FollowingProps {
@@ -25,7 +25,7 @@ const username = ogUser?.login  as string
 //   );
 
 //   const followers = query.data as Follower[];
-const query = useGitGQLQuery(["following", user?.login as string], token, FOLLOWERS, {
+const query = useGitGQLQuery(["following", user?.login as string], token, FOLLOWING, {
     name: user?.login,
   });
   const followers = query?.data?.user?.followers?.edges as FOLLOWER[];
