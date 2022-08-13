@@ -25,7 +25,7 @@ const me = ogUser?.login as string
 //console.log("incoming dev creds ",dev)
 
 const query = useQuery(["userbyname", token,username,me], () =>
-getUserByName(me,username,token,)
+ getUserByName(me,username,token,)
 );
 
 if (query.isLoading) {

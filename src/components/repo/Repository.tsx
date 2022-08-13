@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { RepoType } from '../../types/repo';
 import dayjs from 'dayjs';
-import { BiGitRepoForked, BiLinkExternal } from "react-icons/bi";
+import { BiGitRepoForked} from "react-icons/bi";
 import {FiActivity} from 'react-icons/fi'
 import { SiVisualstudiocode, SiGithub } from "react-icons/si";
 import { useRepos } from './../../utils/hooks';

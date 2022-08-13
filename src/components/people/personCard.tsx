@@ -11,7 +11,7 @@ token:string
 user:MainAuthedUser|undefined
 }
   
-  export const PersonCard: React.FC<PersonCardProps> = ({ dev,token,user }) => {
+export const PersonCard: React.FC<PersonCardProps> = ({ dev,token,user }) => {
   
   const [yes, setYes] = useState<any>(dev?.following_me)  
 
