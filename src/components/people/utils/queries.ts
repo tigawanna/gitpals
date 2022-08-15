@@ -29,3 +29,19 @@ export const FOLLOWERS = gql`
     }
   }
 `;
+export const FOLLOWING = gql`
+  query getFollowers($name: String!) {
+    user(login: $name) {
+      following(first: 10) {
+        edges {
+          node {
+            login
+            avatarUrl
+            id
+          }
+        }
+        totalCount
+      }
+    }
+  }
+`;
