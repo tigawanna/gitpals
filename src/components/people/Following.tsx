@@ -28,7 +28,7 @@ const username = ogUser?.login  as string
 const query = useGitGQLQuery(["following", user?.login as string], token, FOLLOWING, {
     name: user?.login,
   });
-  const followers = query?.data?.user?.followers?.edges as FOLLOWER[];
+  const followers = query?.data?.user?.following?.edges as FOLLOWER[];
 
 // //console.log("followers === ",followers)
   if (query.isLoading) {
