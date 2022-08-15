@@ -21,7 +21,7 @@ export const Followers: React.FC<FollowersProps> = ({ url, token,user,ogUser }) 
   //   getUserWithFollowerDetails(token,link,username)
   // );
   const query = useGitGQLQuery(["followers", user?.login as string], token, FOLLOWERS, {
-    name:user?.login,
+    name:user?.login,limit:2
   });
   const followers = query?.data?.user?.followers?.edges as FOLLOWER[]
    

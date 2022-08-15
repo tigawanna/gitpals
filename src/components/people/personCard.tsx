@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { followUser,unfollowUser } from '../../utils/githubapi';
 import { MainAuthedUser } from '../../types/UserTypes';
 import { useGitGQLQuery } from './utils/gql';
-import { MINIUSER, FOLLOWERNODE } from './utils/types';
+import { MINIUSER, FOLLOWNODE } from './utils/types';
 import { MINI_USER } from './utils/queries';
 
 
 interface PersonCardProps {
-dev: FOLLOWERNODE;
+dev: FOLLOWNODE;
 token:string
 user:MainAuthedUser|undefined
 }
@@ -39,7 +39,7 @@ const followThem=(their_name:string,token:string)=>{
   unfollowUser(their_name,token)
  } 
   if (query.isLoading) {
-    return <div className="h-full w-full  flex-center ">Loading....</div>;
+    return <div className="h-full w-full  flex-center "></div>;
   }
     return (
       <div

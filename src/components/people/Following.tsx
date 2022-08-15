@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { PersonCard } from "./personCard";
 import { useGitGQLQuery } from "./utils/gql";
 import { FOLLOWING } from "./utils/queries";
-import { FOLLOWER } from "./utils/types";
+import { FOLLOWER, FOLLOWERS, USER_FOLLOWING } from "./utils/types";
 
 interface FollowingProps {
   token: string;
@@ -18,29 +18,37 @@ interface FollowingProps {
 }
 
 export const Following: React.FC<FollowingProps> = ({ token, url,user,ogUser }) => {
-  
+ 
 const username = ogUser?.login  as string
 // const query = useQuery(["following", token, url], () =>
 //     getUserWithFollowerDetails(token, url,username)
 //   );
-
-//   const followers = query.data as Follower[];
-const query = useGitGQLQuery(["following", user?.login as string], token, FOLLOWING, {
-    name: user?.login,
+const [cursor, setCursor] = React.useState<string|null>(null); 
+//   const following = query.data as Follower[];
+const cursor_var = cursor?cursor:"null"
+const query = useGitGQLQuery(["following",cursor_var, user?.login as string], token, FOLLOWING, {
+    name: user?.login,limit:2,after:cursor
   });
-  const followers = query?.data?.user?.following?.edges as FOLLOWER[];
+  const response = query.data as USER_FOLLOWING
 
-// //console.log("followers === ",followers)
+  const following = response?.user?.following?.edges
+  const pageInfo = response?.user?.following?.pageInfo 
+  
+  console.log("following === ",following)
+  // const last_item_id = following[following.length - 1].node.id;
   if (query.isLoading) {
     return <div className="h-full w-full  flex-center ">Loading....</div>;
   }
 
  return (
     <div className="h-fit w-full flex-center  flex-wrap">
-      {followers &&
-        followers.map((dev, index) => {
+      {following &&
+        following.map((dev, index) => {
           return <PersonCard key={index} dev={dev?.node} token={token} user={user}/>;
         })}
+     {pageInfo?.hasNextPage?<button className="px-1 m-1 bg-slate-500"
+      onClick={()=>setCursor(pageInfo.endCursor)}
+      >load more</button>:null}
     </div>
   );
 };

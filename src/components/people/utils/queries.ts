@@ -14,9 +14,9 @@ export const MINI_USER = gql`
   }
 `;
 export const FOLLOWERS = gql`
-  query getFollowers($name: String!) {
+  query getFollowers($name: String!, $limit:Int) {
     user(login: $name) {
-      followers(first: 10) {
+      followers(first: $limit) {
         edges {
           node {
             login
@@ -30,17 +30,45 @@ export const FOLLOWERS = gql`
   }
 `;
 export const FOLLOWING = gql`
-  query getFollowers($name: String!) {
-    user(login: $name) {
-      following(first: 10) {
+         query getFollowers($name: String!, $limit: Int, $after: String) {
+           user(login: $name) {
+             following(first: $limit, after: $after) {
+               edges {
+                 node {
+                   login
+                   avatarUrl
+                   id
+                 }
+               }
+               totalCount
+               pageInfo {
+                 startCursor
+                 endCursor
+                 hasNextPage
+                 hasPreviousPage
+               }
+             }
+           }
+         }
+       `;
+
+const SIMPLE_USER_QUERY = gql`
+  query LOGGEDIN_USER {
+    viewer {
+      login
+      followers(first: 2) {
         edges {
           node {
-            login
-            avatarUrl
             id
+            name
           }
         }
-        totalCount
+        pageInfo {
+          hasNextPage
+          startCursor
+          hasPreviousPage
+          endCursor
+        }
       }
     }
   }
