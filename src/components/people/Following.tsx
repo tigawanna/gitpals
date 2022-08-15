@@ -26,9 +26,17 @@ const username = ogUser?.login  as string
 const [cursor, setCursor] = React.useState<string|null>(null); 
 //   const following = query.data as Follower[];
 const cursor_var = cursor?cursor:"null"
-const query = useGitGQLQuery(["following",cursor_var, user?.login as string], token, FOLLOWING, {
-    name: user?.login,limit:2,after:cursor
-  });
+const query = useGitGQLQuery(
+  ["following", cursor_var, user?.login as string],
+  token,
+  FOLLOWING,
+  {
+    name: user?.login,
+    limit: 2,
+    after: cursor,
+  },
+  { keepPreviousData:true}
+);
   const response = query.data as USER_FOLLOWING
 
   const following = response?.user?.following?.edges

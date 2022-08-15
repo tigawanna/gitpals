@@ -23,5 +23,5 @@ export const useGitGQLQuery = (
 
   // const fetchData = async () => await request(endpoint, query, variables);
 
-  return useQuery(key, fetchData, config);
+  return useQuery(key, fetchData, {keepPreviousData:true});
 };
