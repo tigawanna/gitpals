@@ -3,7 +3,7 @@ import {MainAuthedUser } from "../../types/UserTypes";
 import { PersonCard } from "./personCard";
 import { useGitGQLQuery } from './utils/gql';
 import { FOLLOWERS } from "./utils/queries";
-import { FOLLOWER } from "./utils/types";
+import { FOLLOWER, USER_FOLLOWERS } from "./utils/types";
 
 
 interface FollowersProps {
@@ -20,10 +20,25 @@ export const Followers: React.FC<FollowersProps> = ({ url, token,user,ogUser }) 
   // const query = useQuery(["followers", token, link,username], () =>
   //   getUserWithFollowerDetails(token,link,username)
   // );
-  const query = useGitGQLQuery(["followers", user?.login as string], token, FOLLOWERS, {
-    name:user?.login,limit:2
-  });
-  const followers = query?.data?.user?.followers?.edges as FOLLOWER[]
+const [cursor, setCursor] = React.useState<string|null>(null); 
+//   const following = query.data as Follower[];
+const cursor_var = cursor?cursor:"null"
+const query = useGitGQLQuery(
+  ["followers", cursor_var, user?.login as string],
+  token,
+  FOLLOWERS,
+  {
+    name: user?.login,
+    limit: 30,
+    after: cursor,
+  },
+  { keepPreviousData:true}
+);
+  const response = query.data as USER_FOLLOWERS
+
+  const followers = response?.user?.followers?.edges
+  const pageInfo = response?.user?.followers?.pageInfo 
+  
    
 //  console.log("followers === ",followers)
 

@@ -32,7 +32,7 @@ const query = useGitGQLQuery(
   FOLLOWING,
   {
     name: user?.login,
-    limit: 2,
+    limit: 30,
     after: cursor,
   },
   { keepPreviousData:true}

@@ -14,17 +14,23 @@ export const MINI_USER = gql`
   }
 `;
 export const FOLLOWERS = gql`
-  query getFollowers($name: String!, $limit:Int) {
+  query getFollowers($name: String!, $limit:Int,$after: String) {
     user(login: $name) {
-      followers(first: $limit) {
-        edges {
-          node {
-            login
-            avatarUrl
-            id
-          }
-        }
-        totalCount
+      followers(first: $limit, after: $after) {
+             edges {
+                 node {
+                   login
+                   avatarUrl
+                   id
+                 }
+               }
+               totalCount
+               pageInfo {
+                 startCursor
+                 endCursor
+                 hasNextPage
+                 hasPreviousPage
+               }
       }
     }
   }
