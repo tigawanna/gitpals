@@ -19,7 +19,7 @@ const user = dev as MainAuthedUser
 
 //console.log(dev.login)
 // const followers_url ="https://api.github.com/user/following"
-const following_url =`https://api.github.com/users/${user?.login}/following`
+const following_urls =`https://api.github.com/users/${user?.login}/following`
 
 
 
@@ -37,7 +37,7 @@ return (
 
 <div className='w-full  h-fit  flex-col p-2 bg-slate-200 font-sans'>
 <div className='text-lg font-bold'>Following</div>
-<Following token={token} url={following_url} user={user} ogUser={ogUser}/>
+<Following token={token} url={following_urls} user={user} ogUser={ogUser}/>
 </div>
 
 
