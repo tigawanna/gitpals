@@ -47,6 +47,7 @@ export interface MINIUSER {
   login: string;
   id: string;
   isFollowingViewer: boolean;
+  viewerIsFollowing:boolean;
   bio: string;
   avatarUrl: string;
   isViewer: boolean;
