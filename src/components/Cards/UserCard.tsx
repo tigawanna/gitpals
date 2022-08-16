@@ -14,6 +14,7 @@ interface UserCardProps {
 export const UserCard: React.FC<UserCardProps> = ({ user, token, ogUser }) => {
   const navigate = useNavigate();
   const [yes, setYes] = useState<any>(user?.following_me);
+  const [active, setActive] = useState<string>("");
   const username = user?.login as string;
   const admin = ogUser?.login === user?.login;
   //console.log("og user",admin)
@@ -47,8 +48,17 @@ export const UserCard: React.FC<UserCardProps> = ({ user, token, ogUser }) => {
         </div>
         <div className="w-[70%] flex justify-between">
           <div
-            onClick={() => navigate("/profile", { state: { dev: user } })}
-            className="text-[12px] md:text-lg w-fit h-fit hover:bg-slate-500 rounded.sm hover:text-white cursor-pointer p-[2px]"
+            onClick={() => {
+              setActive("followers");
+              navigate("/profile", { state: { dev: user, tab: "followers" } });
+            }}
+            className="text-[12px] md:text-lg w-fit h-fit hover:bg-slate-500
+             rounded.sm hover:text-white cursor-pointer p-[2px]"
+            style={{
+              borderBottomColor: "purple",
+              borderStyle: active === "followers" ? "solid" : "none",
+              borderBottomWidth: "5px",
+            }}
           >
             folllowers: {user?.followers}
           </div>
@@ -57,14 +67,17 @@ export const UserCard: React.FC<UserCardProps> = ({ user, token, ogUser }) => {
               {yes ? (
                 <button
                   onClick={() => unfollowThem(username, token)}
-                  className="bg-slate-600 hover:bg-slate-800 text-white hover:text-red-200 text-[12px] rounded-md p-[4px] m-[3px] h-fit"
+                  className="bg-slate-600 hover:bg-slate-800 
+                  text-white hover:text-red-200 text-[12px] rounded-md 
+                  p-[4px] m-[3px] h-fit"
                 >
                   {"Unfollow"}
                 </button>
               ) : (
                 <button
                   onClick={() => followThem(username, token)}
-                  className="bg-slate-600 hover:bg-slate-800 text-white hover:text-red-200 text-[12px] rounded-md p-[4px] m-[3px] h-fit "
+                  className="bg-slate-600 hover:bg-slate-800 text-white hover:text-red-200 
+                  text-[12px] rounded-md p-[4px] m-[3px] h-fit "
                 >
                   {"Follow"}
                 </button>
@@ -72,8 +85,17 @@ export const UserCard: React.FC<UserCardProps> = ({ user, token, ogUser }) => {
             </div>
           ) : null}
           <div
-            onClick={() => navigate("/profile", { state: { dev: user } })}
-            className="text-[12px] md:text-lg w-fit h-fit rounded-sm hover:bg-slate-500 hover:text-white cursor-pointer p-[2px]"
+            onClick={() => {
+              setActive("following");
+              navigate("/profile", { state: { dev: user, tab: "following" } });
+            }}
+            className="text-[12px] md:text-lg w-fit h-fit rounded-sm 
+          hover:bg-slate-500 hover:text-white cursor-pointer p-[2px]"
+            style={{
+              borderBottomColor: "purple",
+              borderStyle: active === "following" ? "solid" : "none",
+              borderBottomWidth: "5px",
+            }}
           >
             folllowing: {user?.following}
           </div>

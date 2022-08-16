@@ -14,6 +14,8 @@ export const MINI_USER = gql`
            }
          }
        `;
+
+
 export const FOLLOWERS = gql`
   query getFollowers($name: String!, $limit:Int,$after: String) {
     user(login: $name) {
@@ -36,6 +38,9 @@ export const FOLLOWERS = gql`
     }
   }
 `;
+
+
+
 export const FOLLOWING = gql`
          query getFollowing($name: String!, $limit: Int, $after: String) {
            user(login: $name) {
@@ -58,6 +63,9 @@ export const FOLLOWING = gql`
            }
          }
        `;
+
+
+
 
 const SIMPLE_USER_QUERY = gql`
   query LOGGEDIN_USER {

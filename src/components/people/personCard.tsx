@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { followUser, unfollowUser } from "../../utils/githubapi";
 import { MainAuthedUser } from "../../types/UserTypes";
 import { useGitGQLQuery } from "./utils/gql";
-import { MINIUSER, FOLLOWNODE } from "./utils/types";
+import { FOLLOWNODE, MINIUSER } from "./utils/types";
 import { MINI_USER } from "./utils/queries";
 
 interface PersonCardProps {

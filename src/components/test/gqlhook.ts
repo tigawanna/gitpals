@@ -26,10 +26,8 @@ export const useTestGQLQuery = (
   pageParam?:string
 }
   const fetchData = async (deps:any) => {
-   console.log("fetch function deps === ",deps);
-    const nextPageParam = deps?.pageParam?deps.pageParam:null
-    //@ts-ignore
-    variables.after=nextPageParam
+//@ts-ignore
+      (variables[after] = deps?.pageParam ? deps.pageParam : null);
         console.log("variables in function === ", variables);
     return await graphQLClient.request(query, variables);
   };
@@ -41,7 +39,7 @@ export const useTestGQLQuery = (
         return firstPage?.user?.followers?.pageInfo?.startCursor ?? null;
     },
     getNextPageParam: (lastPage:FOLLOWERSPAGE) => {
-        return lastPage?.user?.followers?.pageInfo?.endCursor ?? null
+       return lastPage?.user?.followers?.pageInfo?.endCursor ?? null
     },
   });
 };

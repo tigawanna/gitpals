@@ -12,10 +12,12 @@ token:string
 }
 
 export const Profile: React.FC<ProfileProps> = ({ogUser,token}) => {
-    const location = useLocation();
+const location = useLocation();
 //@ts-ignore
 const dev = location.state?.dev as PersonRouteProps   
 const user = dev as MainAuthedUser
+//@ts-ignore
+const from = location?.state?.tab as string
 
 //console.log(dev.login)
 // const followers_url ="https://api.github.com/user/following"
@@ -30,15 +32,15 @@ return (
 </div>
 
 
+{from === "followers"?
 <div className='w-full  h-fit  flex-col p-2 bg-slate-200 font-sans'>
 <div className='text-lg font-bold'>Followers</div>
 <Followers url={user?.followers_url} token={token} user={user} ogUser={ogUser}/>
-</div>
-
+</div>:
 <div className='w-full  h-fit  flex-col p-2 bg-slate-200 font-sans'>
 <div className='text-lg font-bold'>Following</div>
 <Following token={token} url={following_urls} user={user} ogUser={ogUser}/>
-</div>
+</div>}
 
 
 

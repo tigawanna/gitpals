@@ -1,38 +1,46 @@
 
-
-export interface USER_FOLLOWING {
-  user: UserFollowing;
-}
-export interface USER_FOLLOWERS {
-  user: UserFollowers;
-}
-export interface UserFollowers {
-  followers: FollowType;
-}
-export interface UserFollowing {
-  following: FollowType;
+//following 
+export interface ROOTFOLLOWERS {
+  pages: FOLLOWERSPAGE[];
+  pageParams: any[];
 }
 
-export interface FollowType {
-  edges: Edge[];
-  totalCount: number;
-  pageInfo: PageInfo;
+export interface FOLLOWERSPAGE {
+  user: FOLLOWERS;
 }
 
-export interface Edge {
-  node: FOLLOWNODE;
-}
 export interface FOLLOWERS {
+  followers: Follow;
+}
+
+// following typw
+export interface ROOTFOLLOWING {
+  pages: FOLLOWINGPAGE[];
+  pageParams: any[];
+}
+
+export interface FOLLOWINGPAGE {
+  user: FOLLOWING;
+}
+
+export interface FOLLOWING {
+  following: Follow;
+}
+
+export interface Follow {
   edges: Edge[];
   totalCount: number;
   pageInfo: PageInfo;
 }
-export interface FOLLOWNODE {
+export interface Edge {
+  node: Node;
+}
+
+export interface Node {
   login: string;
   avatarUrl: string;
   id: string;
 }
-
 
 export interface PageInfo {
   startCursor: string;
@@ -41,7 +49,11 @@ export interface PageInfo {
   hasPreviousPage: boolean;
 }
 
-
+export interface FOLLOWNODE {
+  login: string;
+  avatarUrl: string;
+  id: string;
+}
 
 export interface MINIUSER {
   login: string;
@@ -54,9 +66,6 @@ export interface MINIUSER {
   url: string;
 }
 
-export interface FOLLOWER {
-  node: FOLLOWNODE;
-}
 
 
 
