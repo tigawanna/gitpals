@@ -17,6 +17,7 @@ token:string
 
 export const Repository: React.FC<RepositoryProps> = ({username,token}) => {
 const [keyword, setKeyword] = useState({word:''})
+
 const {repos,query} = useRepos(token,username as string,keyword.word)
 const action = () => {
   //console.log("test query === ", keyword);
@@ -50,6 +51,9 @@ results={results} search_query={query}
 </div>
 );
 }
+
+
+
 
 
 
