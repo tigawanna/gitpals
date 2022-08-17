@@ -34,15 +34,20 @@ const [keyword, setKeyword] = useState({word:''})
     {
       select:(repos:ROOTREPO)=>{ 
 
+   const deepFiltered = repos.pages.map((repo)=>
+       repo?.user?.repositories?.edges?.filter((rep) =>
+           rep.node.name.toLowerCase().includes(keyword.word.toLowerCase())
+          ))
+  const filtered =deepFiltered[0]
 
-        
-        const filtered = repos.pages[0].user.repositories.edges.filter((repo) =>
-           repo.node.name.toLowerCase().includes(keyword.word.toLowerCase())
-        );
+        // const filtered = repos.pages[0].user.repositories.edges.filter((repo) =>
+        //    repo.node.name.toLowerCase().includes(keyword.word.toLowerCase())
+        // );
 
-
-        console.log("filtered === ",filtered)
-        console.log(" repos ===== ",repos)
+      
+         console.log("deep filter =======  ", filtered);
+        // console.log("filtered === ",filtered)
+        // console.log(" repos ===== ",repos)
         const pageParams = repos?.pageParams
         const rep = repos.pages[0].user.repositories
         const user = {
@@ -53,7 +58,7 @@ const [keyword, setKeyword] = useState({word:''})
         }
       }
      const  newRepos = {pageParams,pages:[{user:user}]}
-     console.log("new repod ====  ", newRepos)
+    //  console.log("new repod ====  ", newRepos)
      return newRepos
 
        },
@@ -78,7 +83,7 @@ const action = () => {
 const results:any = {}
 const data = query.data as ROOTREPO;
 
-console.log("in pepos === ", query);
+// console.log("in pepos === ", query);
 if (query.isLoading ) {
 return <div className="h-full w-full  flex-center ">Loading....</div>;
 }  
@@ -96,7 +101,7 @@ results={results} search_query={query}
 <div className="h-[80%] w-full flex-center flex-wrap  mb-1">
     {repos?.map((repo)=>{
        return repo?.user?.repositories?.edges.map((item)=>{
-        return <RepoCard repo={item.node} key={item.node.id} token={token} />;
+        return <RepoCard repo={item.node} key={item.node?.id} token={token} />;
        })
     })}
 
