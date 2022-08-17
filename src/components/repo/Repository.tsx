@@ -10,6 +10,7 @@ import { SearchBox } from '../Shared/SearchBox';
 import { TheIcon } from '../Shared/TheIcon';
 import { useInfiniteGQLQuery } from './../../utils/graphql/gqlInfiniteQuery';
 import { REPOS } from './utils/query';
+import { REPONODE, REPOPAGE, ROOTREPO } from './utils/type';
 
 dayjs.extend(relativeTime)
 interface RepositoryProps {
@@ -21,8 +22,8 @@ export const Repository: React.FC<RepositoryProps> = ({username,token}) => {
 const [keyword, setKeyword] = useState({word:''})
 
 
-  const repoquery = useInfiniteGQLQuery(
-    ["test repos", username as string],
+  const query = useInfiniteGQLQuery(
+    ["test", username as string],
     token,
     REPOS,
     {
@@ -30,19 +31,19 @@ const [keyword, setKeyword] = useState({word:''})
       first: 25,
       after: null,
     },
-    // {
-    //   getPreviousPageParam: (firstPage:any) => {
-    //     return firstPage?.user?.followers?.pageInfo?.startCursor ?? null;
-    //   },
-    //   getNextPageParam: (lastPage: any) => {
-    //     return lastPage?.user?.followers?.pageInfo?.endCursor ?? null;
-    //   },
-    // }
+    {
+      getPreviousPageParam: (firstPage:REPOPAGE) => {
+        return firstPage?.user?.repositories?.pageInfo?.startCursor ?? null;
+      },
+      getNextPageParam: (lastPage:REPOPAGE) => {
+        return lastPage?.user?.repositories?.pageInfo?.endCursor ?? null;
+      },
+    }
   );
+const data = query.data as ROOTREPO
 
-
-console.log("test reppos ==== ",repoquery.data)  
-const {repos,query} = useRepos(token,username as string,keyword.word)
+// const {repos,query} = useRepos(token,username as string,keyword.word)
+const repos = data?.pages
 const action = () => {
   //console.log("test query === ", keyword);
   setKeyword({ word: "" });
@@ -68,9 +69,13 @@ results={results} search_query={query}
 />
 </div>
 <div className="h-[80%] w-full flex-center flex-wrap  mb-1">
-    {repos.map((one,index)=>{
-        return <RepoCard repo={one} key={index+one.id} token={token}/>
+    {repos.map((repo)=>{
+       return repo?.user?.repositories?.edges.map((item)=>{
+        return <RepoCard repo={item.node} key={item.node.id} token={token} />;
+       })
     })}
+
+
 </div>
 </div>
 );
@@ -82,14 +87,14 @@ results={results} search_query={query}
 
 
 interface RepoCardProps {
-repo:RepoType
+repo:REPONODE
 token:string
 }
 
 export const RepoCard: React.FC<RepoCardProps> = ({repo,token}) => {
 // console.log(repo.html_url)
 // const repo_link = authedurl(repo.html_url,token)
-const vslink = `https://vscode.dev/${repo.html_url}`;
+const vslink = `https://vscode.dev/${repo.url}`;
 
 return (
   <div
@@ -103,8 +108,22 @@ return (
       <div className="text-[25px] font-semibold md:text-xl md:font-bold  break-all ">
         {repo?.name}
       </div>
-      <div className="text-[15px] font-semibold md:text-sm  text-purple-700 break-all ">
-        {repo?.language}
+      <div className="flex flex-wrap text-color">
+        {repo?.languages.edges.map((item)=>{
+          return (
+            <div
+              style={{
+                borderStyle: "solid",
+                borderWidth: "3px",
+                borderColor: item.node.color,
+                borderRadius:"20%"
+              }}
+              className="p-1 m-[1px] text-[12px] font-semibold md:text-[18px]   break-all"
+            >
+              {item.node.name}
+            </div>
+          );
+        })}
       </div>
       <div className="text-[14px] md:text-sm  break-all max-h-16 h-full overflow-y-clip">
         {repo?.description}
@@ -113,18 +132,18 @@ return (
 
     <div className="w-full text-[15px] text-sm  flex justify-between ">
       <div className="text-[12px] font-bold flex-center">
-        <FiActivity /> {dayjs(repo?.pushed_at).fromNow()}
+        <FiActivity /> {dayjs(repo?.pushedAt).fromNow()}
       </div>
       <div className="flex-center">
-        <BiGitRepoForked /> {repo?.forks_count}
+        <BiGitRepoForked /> {repo?.forkCount}
       </div>
       <div className="flex-center">{repo?.visibility}</div>
-      <div className="flex-center">{repo?.size} kbs</div>
+      <div className="flex-center">{repo?.diskUsage} kbs</div>
       <div className="flex-center">
         <a target="_blank" href={vslink}>
           <TheIcon Icon={SiVisualstudiocode} size={"18"} color={"black"} />
         </a>
-        <a target="_blank" href={repo.html_url}>
+        <a target="_blank" href={repo.url}>
           <TheIcon Icon={SiGithub} size={"18"} color={"black"} />
         </a>
       </div>

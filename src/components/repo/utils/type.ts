@@ -1,9 +1,9 @@
 export interface ROOTREPO {
-  pages: Page[];
+  pages: REPOPAGE[];
   pageParams: any[];
 }
 
-export interface Page {
+export interface REPOPAGE {
   user: User;
 }
 
@@ -19,7 +19,7 @@ export interface Repositories {
 }
 
 export interface REPOEDGE {
-  node: Node;
+  node: REPONODE;
   cursor: string;
 }
 
