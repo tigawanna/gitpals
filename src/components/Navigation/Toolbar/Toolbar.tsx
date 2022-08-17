@@ -5,7 +5,8 @@ import { Link} from "react-router-dom";
 ;import { Consent } from '../../Modal/Consent';
 import { useState } from 'react';
 import { MainAuthedUser } from './../../../types/UserTypes';
-import { useUserSearch } from '../../../utils/hooks';
+import { useUserSearch } from '../../../utils/hooks'
+
 
 
 interface ToolbarProps {
@@ -38,6 +39,7 @@ return (
             <GrHome />
           </Link>
         </div>
+
         {/* <div className='h-full w-[80%]  flex-col-center font-normal '>
    <SearchBox keyword={keyword} setKeyword={setKeyword} action={action} title={"email or username"}/>
    </div>

@@ -5,7 +5,11 @@ export const REPOS = gql`
          query getRepos($name: String!, $first: Int, $after: String) {
            user(login: $name) {
              login
-             repositories(after: $after, first: $first) {
+             repositories(
+               after: $after
+               first: $first
+               orderBy: { field: PUSHED_AT, direction: DESC }
+             ) {
                edges {
                  node {
                    id
@@ -16,6 +20,7 @@ export const REPOS = gql`
                    url
                    visibility
                    forkCount
+
                    languages(first: $first) {
                      edges {
                        node {

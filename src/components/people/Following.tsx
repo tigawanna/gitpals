@@ -72,7 +72,9 @@ const query = useInfiniteGQLQuery(
           --- load more ---
         </button>
       ) : null}
-      {query.isFetchingNextPage ? "loading more..." : null}
+      {query.isFetchingNextPage ? (
+        <div className="w-full flex-center m-1 p-1">loading more...</div>
+      ) : null}
     </div>
   );
 };

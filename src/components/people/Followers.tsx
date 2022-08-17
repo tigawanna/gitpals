@@ -47,7 +47,6 @@ if (query.isLoading) {
 
   return (
     <div className="h-full w-full flex-col-center ">
-
       <div className="h-fit w-full flex-center  flex-wrap">
         {pages?.map((page) => {
           return page?.user?.followers?.edges?.map((item) => {
@@ -62,7 +61,7 @@ if (query.isLoading) {
           });
         })}
       </div>
-      {!query.isFetchingNextPage && hasMore  ? (
+      {!query.isFetchingNextPage && hasMore ? (
         <button
           className="m-2 hover:text-purple-400 shadow-lg hover:shadow-purple"
           onClick={() => {
@@ -72,7 +71,9 @@ if (query.isLoading) {
           --- load more ---
         </button>
       ) : null}
-      {query.isFetchingNextPage ? "loading more..." : null}
+      {query.isFetchingNextPage ? (
+        <div className="w-full flex-center m-1 p-1">loading more...</div>
+      ) : null}
     </div>
   );
 };

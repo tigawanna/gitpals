@@ -11,6 +11,7 @@ import { TheIcon } from '../Shared/TheIcon';
 import { useInfiniteGQLQuery } from './../../utils/graphql/gqlInfiniteQuery';
 import { REPOS } from './utils/query';
 import { REPONODE, REPOPAGE, ROOTREPO } from './utils/type';
+import { concatPages } from './utils/helper';
 
 dayjs.extend(relativeTime)
 interface RepositoryProps {
@@ -23,7 +24,7 @@ const [keyword, setKeyword] = useState({word:''})
 
 
   const query = useInfiniteGQLQuery(
-    ["test", username as string],
+    ["repositories", username as string],
     token,
     REPOS,
     {
@@ -32,54 +33,16 @@ const [keyword, setKeyword] = useState({word:''})
       after: null,
     },
     {
-      //   select:(repos:ROOTREPO)=>{
-
-      //    const deepFiltered = repos.pages.map((repo)=>
-      //    repo?.user?.repositories?.edges?.filter((rep) =>
-      //        rep.node.name.toLowerCase().includes(keyword.word.toLowerCase())
-      //       ))
-      //      const filtered =deepFiltered[0]
-
-      //     // const filtered = repos.pages[0].user.repositories.edges.filter((repo) =>
-      //     //    repo.node.name.toLowerCase().includes(keyword.word.toLowerCase())
-      //     // );
-
-      //     //  console.log("deep filter =======  ", filtered);
-      //     // console.log("filtered === ",filtered)
-      //     // console.log(" repos ===== ",repos)
-      //     const pageParams = repos?.pageParams
-      //     const rep = repos.pages[0].user.repositories
-      //     const user = {
-      //       login:repos.pages[0].user.login,
-      //       repositories:{edges:filtered,
-      //       totalCount:rep.totalCount,
-      //       pageInfo:rep.pageInfo
-      //     }
-      //   }
-      //  const  newRepos = {pageParams,pages:[{user:user}]}
-      // //  console.log("new repod ====  ", newRepos)
-      //  return newRepos
-
-      //    },
-      getPreviousPageParam: (firstPage: REPOPAGE) => {
+    getPreviousPageParam: (firstPage: REPOPAGE) => {
         return firstPage?.user?.repositories?.pageInfo?.startCursor ?? null;
       },
       getNextPageParam: (lastPage: REPOPAGE) => {
         // console.log(" end cursor  === ",lastPage.user.repositories.pageInfo.endCursor)
         return lastPage?.user?.repositories?.pageInfo?.endCursor ?? null;
       },
-      // select: (data:any) => ({
-      //   pages: [...data.pages].reverse(),
-      //  pageParams: [...data.pageParams].reverse(),
-      // })
-      select: (data: any) => {
-        const tables = [...data.pages]
-        // console.log("tables in select  ===== ",data.pages)
-        return ({
-        pages: [...data.pages],
-        pageParams: [...data.pageParams],
-      })
-    }
+      select: (data:ROOTREPO) => {
+         return concatPages(data,keyword.word)
+      }
     }
   );
 
@@ -92,7 +55,8 @@ const action = () => {
 
 const results:any = {}
 const data = query.data as ROOTREPO;
-
+const totalRepsLoaded = data?.pages[0]?.user?.repositories?.edges?.length
+console.log("no of loadeds items ==== ",totalRepsLoaded)
 // console.log("in pepos === ", query.data);
 
 if (query.isLoading ) {
@@ -115,6 +79,11 @@ return (
         search_query={query}
       />
     </div>
+    <div className="w-full flex-center sticky top-[15%] ">
+      <div className="w-fit flex-center p-[1px] font-bold bg-white">
+        {totalRepsLoaded}/{extras.totalCount}
+      </div>
+    </div>
     <div className="h-[80%] w-full flex-center flex-wrap  mb-1">
       {repos?.map((repo) => {
         return repo?.user?.repositories?.edges.map((item) => {
@@ -135,7 +104,9 @@ return (
         --- load more ---
       </button>
     ) : null}
-    {query.isFetchingNextPage ? "loading more..." : null}
+    {query.isFetchingNextPage ? (
+      <div className="w-full flex-center m-1 p-1">loading more...</div>
+    ) : null}
   </div>
 );
 }
@@ -164,7 +135,7 @@ return (
       onClick={() => {}}
       className=" flex-col items-center  justify-between  cursor-pointer h-[90%] w-full"
     >
-      <div className="text-[25px] font-semibold md:text-xl md:font-bold  break-all ">
+      <div className="text-[20px] font-semibold md:text-xl md:font-bold  break-all ">
         {repo?.name}
       </div>
       <div className="flex flex-wrap text-color">
@@ -174,18 +145,18 @@ return (
               key={item.node.id}
               style={{
                 borderStyle: "solid",
-                borderWidth: "3px",
+                borderWidth: "2px",
                 borderColor: item.node.color,
-                borderRadius:"20%"
+                borderRadius:"10%"
               }}
-              className="p-1 m-[1px] text-[12px] font-semibold md:text-[18px]   break-all"
+              className="p-1 m-[1px] text-[12px] font-semibold md:text-[14px]   break-all"
             >
               {item.node.name}
             </div>
           );
         })}
       </div>
-      <div className="text-[14px] md:text-sm  break-all max-h-16 h-full overflow-y-clip">
+      <div className="text-[14px] md:text-sm  break-all max-h-[20%] overflow-y-clip">
         {repo?.description}
       </div>
     </div>
