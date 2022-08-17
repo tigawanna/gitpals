@@ -32,44 +32,54 @@ const [keyword, setKeyword] = useState({word:''})
       after: null,
     },
     {
-      select:(repos:ROOTREPO)=>{ 
+      //   select:(repos:ROOTREPO)=>{
 
-   const deepFiltered = repos.pages.map((repo)=>
-       repo?.user?.repositories?.edges?.filter((rep) =>
-           rep.node.name.toLowerCase().includes(keyword.word.toLowerCase())
-          ))
-  const filtered =deepFiltered[0]
+      //    const deepFiltered = repos.pages.map((repo)=>
+      //    repo?.user?.repositories?.edges?.filter((rep) =>
+      //        rep.node.name.toLowerCase().includes(keyword.word.toLowerCase())
+      //       ))
+      //      const filtered =deepFiltered[0]
 
-        // const filtered = repos.pages[0].user.repositories.edges.filter((repo) =>
-        //    repo.node.name.toLowerCase().includes(keyword.word.toLowerCase())
-        // );
+      //     // const filtered = repos.pages[0].user.repositories.edges.filter((repo) =>
+      //     //    repo.node.name.toLowerCase().includes(keyword.word.toLowerCase())
+      //     // );
 
-      
-         console.log("deep filter =======  ", filtered);
-        // console.log("filtered === ",filtered)
-        // console.log(" repos ===== ",repos)
-        const pageParams = repos?.pageParams
-        const rep = repos.pages[0].user.repositories
-        const user = {
-          login:repos.pages[0].user.login,
-          repositories:{edges:filtered,
-          totalCount:rep.totalCount,
-          pageInfo:rep.pageInfo
-        }
-      }
-     const  newRepos = {pageParams,pages:[{user:user}]}
-    //  console.log("new repod ====  ", newRepos)
-     return newRepos
+      //     //  console.log("deep filter =======  ", filtered);
+      //     // console.log("filtered === ",filtered)
+      //     // console.log(" repos ===== ",repos)
+      //     const pageParams = repos?.pageParams
+      //     const rep = repos.pages[0].user.repositories
+      //     const user = {
+      //       login:repos.pages[0].user.login,
+      //       repositories:{edges:filtered,
+      //       totalCount:rep.totalCount,
+      //       pageInfo:rep.pageInfo
+      //     }
+      //   }
+      //  const  newRepos = {pageParams,pages:[{user:user}]}
+      // //  console.log("new repod ====  ", newRepos)
+      //  return newRepos
 
-       },
+      //    },
       getPreviousPageParam: (firstPage: REPOPAGE) => {
         return firstPage?.user?.repositories?.pageInfo?.startCursor ?? null;
       },
       getNextPageParam: (lastPage: REPOPAGE) => {
+        // console.log(" end cursor  === ",lastPage.user.repositories.pageInfo.endCursor)
         return lastPage?.user?.repositories?.pageInfo?.endCursor ?? null;
       },
-
-
+      // select: (data:any) => ({
+      //   pages: [...data.pages].reverse(),
+      //  pageParams: [...data.pageParams].reverse(),
+      // })
+      select: (data: any) => {
+        const tables = [...data.pages]
+        // console.log("tables in select  ===== ",data.pages)
+        return ({
+        pages: [...data.pages],
+        pageParams: [...data.pageParams],
+      })
+    }
     }
   );
 
@@ -83,31 +93,50 @@ const action = () => {
 const results:any = {}
 const data = query.data as ROOTREPO;
 
-// console.log("in pepos === ", query);
+// console.log("in pepos === ", query.data);
+
 if (query.isLoading ) {
 return <div className="h-full w-full  flex-center ">Loading....</div>;
 }  
 // const {repos,query} = useRepos(token,username as string,keyword.word)
 const repos = data?.pages;
-
+const extras = repos[repos.length - 1].user?.repositories;
+const hasMore = extras?.pageInfo?.hasNextPage;
 
 return (
-<div className="min-h-fit w-full flex flex-col justify-between">
-<div className='h-[10%] w-full flex-center my-5'>
-<SearchBox keyword={keyword} setKeyword={setKeyword} action={action} title={"search repo"}
-results={results} search_query={query}
-/>
-</div>
-<div className="h-[80%] w-full flex-center flex-wrap  mb-1">
-    {repos?.map((repo)=>{
-       return repo?.user?.repositories?.edges.map((item)=>{
-        return <RepoCard repo={item.node} key={item.node?.id} token={token} />;
-       })
-    })}
+  <div className="min-h-fit w-full flex flex-col justify-between">
+    <div className="h-[10%] w-full flex-center my-5">
+      <SearchBox
+        keyword={keyword}
+        setKeyword={setKeyword}
+        action={action}
+        title={"search repo"}
+        results={results}
+        search_query={query}
+      />
+    </div>
+    <div className="h-[80%] w-full flex-center flex-wrap  mb-1">
+      {repos?.map((repo) => {
+        return repo?.user?.repositories?.edges.map((item) => {
+          return (
+            <RepoCard repo={item.node} key={item.node?.id} token={token} />
+          );
+        });
+      })}
+    </div>
 
-
-</div>
-</div>
+    {!query.isFetchingNextPage && hasMore ? (
+      <button
+        className="m-2 hover:text-purple-400 shadow-lg hover:shadow-purple"
+        onClick={() => {
+          query.fetchNextPage();
+        }}
+      >
+        --- load more ---
+      </button>
+    ) : null}
+    {query.isFetchingNextPage ? "loading more..." : null}
+  </div>
 );
 }
 
@@ -142,6 +171,7 @@ return (
         {repo?.languages.edges.map((item)=>{
           return (
             <div
+              key={item.node.id}
               style={{
                 borderStyle: "solid",
                 borderWidth: "3px",
