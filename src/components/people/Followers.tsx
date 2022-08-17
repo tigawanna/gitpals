@@ -14,7 +14,8 @@ interface FollowersProps {
 }
 
 export const Followers: React.FC<FollowersProps> = ({token,user}) => {
-const query = useInfiniteGQLQuery(
+
+  const query = useInfiniteGQLQuery(
   ["followers", user?.login as string],
   token,
   FOLLOWERS,

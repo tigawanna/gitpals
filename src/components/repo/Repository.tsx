@@ -8,6 +8,8 @@ import { useRepos } from './../../utils/hooks';
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { SearchBox } from '../Shared/SearchBox';
 import { TheIcon } from '../Shared/TheIcon';
+import { useInfiniteGQLQuery } from './../../utils/graphql/gqlInfiniteQuery';
+import { REPOS } from './utils/query';
 
 dayjs.extend(relativeTime)
 interface RepositoryProps {
@@ -18,6 +20,28 @@ token:string
 export const Repository: React.FC<RepositoryProps> = ({username,token}) => {
 const [keyword, setKeyword] = useState({word:''})
 
+
+  const repoquery = useInfiniteGQLQuery(
+    ["test repos", username as string],
+    token,
+    REPOS,
+    {
+      name: username,
+      first: 25,
+      after: null,
+    },
+    // {
+    //   getPreviousPageParam: (firstPage:any) => {
+    //     return firstPage?.user?.followers?.pageInfo?.startCursor ?? null;
+    //   },
+    //   getNextPageParam: (lastPage: any) => {
+    //     return lastPage?.user?.followers?.pageInfo?.endCursor ?? null;
+    //   },
+    // }
+  );
+
+
+console.log("test reppos ==== ",repoquery.data)  
 const {repos,query} = useRepos(token,username as string,keyword.word)
 const action = () => {
   //console.log("test query === ", keyword);
