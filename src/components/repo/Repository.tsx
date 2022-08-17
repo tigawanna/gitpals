@@ -32,34 +32,59 @@ const [keyword, setKeyword] = useState({word:''})
       after: null,
     },
     {
-      getPreviousPageParam: (firstPage:REPOPAGE) => {
+      select:(repos:ROOTREPO)=>{ 
+
+
+        
+        const filtered = repos.pages[0].user.repositories.edges.filter((repo) =>
+           repo.node.name.toLowerCase().includes(keyword.word.toLowerCase())
+        );
+
+
+        console.log("filtered === ",filtered)
+        console.log(" repos ===== ",repos)
+        const pageParams = repos?.pageParams
+        const rep = repos.pages[0].user.repositories
+        const user = {
+          login:repos.pages[0].user.login,
+          repositories:{edges:filtered,
+          totalCount:rep.totalCount,
+          pageInfo:rep.pageInfo
+        }
+      }
+     const  newRepos = {pageParams,pages:[{user:user}]}
+     console.log("new repod ====  ", newRepos)
+     return newRepos
+
+       },
+      getPreviousPageParam: (firstPage: REPOPAGE) => {
         return firstPage?.user?.repositories?.pageInfo?.startCursor ?? null;
       },
-      getNextPageParam: (lastPage:REPOPAGE) => {
+      getNextPageParam: (lastPage: REPOPAGE) => {
         return lastPage?.user?.repositories?.pageInfo?.endCursor ?? null;
       },
+
+
     }
   );
-const data = query.data as ROOTREPO
 
-// const {repos,query} = useRepos(token,username as string,keyword.word)
-const repos = data?.pages
 const action = () => {
   //console.log("test query === ", keyword);
   setKeyword({ word: "" });
   // results.items = []
 };
 
-// //console.log("in pepos === ",repos)
+
 const results:any = {}
+const data = query.data as ROOTREPO;
 
-
-
-
-
-if (query.isLoading && !repos) {
+console.log("in pepos === ", query);
+if (query.isLoading ) {
 return <div className="h-full w-full  flex-center ">Loading....</div>;
 }  
+// const {repos,query} = useRepos(token,username as string,keyword.word)
+const repos = data?.pages;
+
 
 return (
 <div className="min-h-fit w-full flex flex-col justify-between">
@@ -69,7 +94,7 @@ results={results} search_query={query}
 />
 </div>
 <div className="h-[80%] w-full flex-center flex-wrap  mb-1">
-    {repos.map((repo)=>{
+    {repos?.map((repo)=>{
        return repo?.user?.repositories?.edges.map((item)=>{
         return <RepoCard repo={item.node} key={item.node.id} token={token} />;
        })

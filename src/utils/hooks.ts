@@ -13,7 +13,7 @@ export const useRepos = (token: string, username: string, keyword: string) => {
       select: (repos) =>
         repos.filter((repo: RepoType) =>
           repo.name.toLowerCase().includes(keyword.toLowerCase())
-        ),
+        )
     }
   );
 
