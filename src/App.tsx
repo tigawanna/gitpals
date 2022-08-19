@@ -55,7 +55,7 @@ if (query.isLoading) {
 }
 
   return (
-    <div className="h-screen w-screen scroll-bar flex-col-center dark-styles">
+    <div className="h-screen w-screen scroll-bar flex-col-center dark-styles transition duration-500">
       <BrowserRouter basename="/gitpals">
         <TokenContext.Provider value={{ token, updateToken }}>
           <div className="fixed top-[0px] w-[100%] z-50">
@@ -64,8 +64,10 @@ if (query.isLoading) {
               updateToken={updateToken}
               token={query_token}
             />
-            <div className="h-full w-[100%] mt-[3px] flex-col-center 
-            font-normal bg-slate-50 dark:bg-slate-900">
+            <div
+              className="h-full w-[100%] mt-[3px] flex-col-center 
+            font-normal bg-slate-50 dark:bg-slate-900 transition duration-500"
+            >
               <SearchBox
                 keyword={keyword}
                 setKeyword={setKeyword}
@@ -106,7 +108,7 @@ if (query.isLoading) {
                 }
               />
               <Route path="/login" element={<Login />} />
-              <Route path="/test" element={<Test/>} />
+              <Route path="/test" element={<Test />} />
             </Routes>
           </div>
         </TokenContext.Provider>

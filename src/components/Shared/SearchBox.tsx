@@ -34,7 +34,7 @@ export const SearchBox: React.FC<SearchBoxProps> = (
       <form onSubmit={handleSubmit} className="w-full flex-center">
         <div className="flex-center w-[80%] md:w-[50%] border-black border rounded-md">
           <input
-            className="w-[100%]  p-[2px] md:p-1 mx-1 dark:bg-slate-700"
+            className="w-[100%]  p-[2px] md:p-1 mx-1 dark:bg-slate-700 transition duration-500"
             id="word"
             placeholder={title}
             onChange={handleChange}
@@ -57,12 +57,15 @@ export const SearchBox: React.FC<SearchBoxProps> = (
           </button>
         </div>
       </form>
-      {keyword.word!=='' &&keyword.word.length>2 && 
-      !results?.items && !search_query?.error && !search_query?.isFetched ? (
+      {keyword.word !== "" &&
+      keyword.word.length > 2 &&
+      !results?.items &&
+      !search_query?.error &&
+      !search_query?.isFetched ? (
         <div
           style={{ position: "fixed", top: "100px" }}
           className=" w-[90%] md:w-[50%]  flex-center h-[10%] fixed 
-          top-[15%] bg-slate-200 dark:bg-slate-900 text-lg rounded"
+          top-[15%] bg-slate-200 dark:bg-slate-900 text-lg rounded transition duration-500"
         >
           searching....
         </div>
@@ -73,7 +76,7 @@ export const SearchBox: React.FC<SearchBoxProps> = (
         <div
           style={{ position: "fixed", top: "100px" }}
           className=" w-[90%] md:w-[50%]   flex-center h-[10%] 
-          fixed top-[15%] bg-slate-200 dark:bg-slate-900 text-lg rounded"
+          fixed top-[15%] bg-slate-200 dark:bg-slate-900 text-lg rounded transition duration-500"
         >
           no matches, try different key words
         </div>

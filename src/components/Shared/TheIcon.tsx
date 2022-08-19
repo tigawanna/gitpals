@@ -11,8 +11,8 @@ interface TheIconProps {
 export const TheIcon: React.FC<TheIconProps> = ({Icon,size,color,iconAction}) => {
 
 return (
- <div className='  hover:border-purple-800 p-[2px] rounded'>
-<IconContext.Provider value={{ size,color, className: "mx-[6px] hover:border hover:border-purple-800" }}>
+ <div className='   p-[2px] rounded'>
+<IconContext.Provider value={{ size,color, className: "mx-[6px]" }}>
  <Icon onClick={()=>iconAction()}/>
 </IconContext.Provider>
  </div>
