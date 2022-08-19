@@ -56,7 +56,7 @@ const action = () => {
 const results:any = {}
 const data = query.data as ROOTREPO;
 const totalRepsLoaded = data?.pages[0]?.user?.repositories?.edges?.length
-console.log("no of loadeds items ==== ",totalRepsLoaded)
+// console.log("no of loadeds items ==== ",totalRepsLoaded)
 // console.log("in pepos === ", query.data);
 
 if (query.isLoading ) {
@@ -69,18 +69,18 @@ const hasMore = extras?.pageInfo?.hasNextPage;
 
 return (
   <div className="min-h-fit w-full flex flex-col justify-between">
-    <div className="h-[10%] w-full flex-center my-5">
+    <div className="h-[10%] p-1 w-full flex-center my-5 sticky top-[50px] z-50 bg-white dark:bg-slate-800">
       <SearchBox
         keyword={keyword}
         setKeyword={setKeyword}
         action={action}
-        title={"search repo"}
+        title={"filter repo"}
         results={results}
         search_query={query}
       />
     </div>
-    <div className="w-full flex-center sticky top-[15%] ">
-      <div className="w-fit flex-center p-[1px] font-bold bg-white">
+    <div className="w-full flex-center sticky top-[12%] ">
+      <div className="w-fit flex-center p-[2px] font-bold bg-white dark:bg-slate-900">
         {totalRepsLoaded}/{extras.totalCount}
       </div>
     </div>
@@ -128,8 +128,9 @@ const vslink = `https://vscode.dev/${repo.url}`;
 
 return (
   <div
-    className="h-52 w-[95%] md:w-[40%] lg:w-[30%] p-5 flex-col 
-     ustify-between items-center shadow-lg shadow-slate-300  m-2 border-black border-2 rounded-md"
+    className=" min-h-fit h-52 m-2 w-[95%] md:w-[40%] lg:w-[30%] p-5 flex-col 
+     ustify-between items-center shadow-sm shadow-slate-300 dark:shadow-black  
+ border-black border-2 rounded-md"
   >
     <div
       onClick={() => {}}
@@ -139,7 +140,7 @@ return (
         {repo?.name}
       </div>
       <div className="flex flex-wrap text-color">
-        {repo?.languages.edges.map((item)=>{
+        {repo?.languages.edges.map((item) => {
           return (
             <div
               key={item.node.id}
@@ -147,16 +148,16 @@ return (
                 borderStyle: "solid",
                 borderWidth: "2px",
                 borderColor: item.node.color,
-                borderRadius:"10%"
+                borderRadius: "10%",
               }}
-              className="p-1 m-[1px] text-[12px] font-semibold md:text-[14px]   break-all"
+              className="p-[1px] m-[1px] text-[10px] font-semibold md:text-[10px]   break-all"
             >
               {item.node.name}
             </div>
           );
         })}
       </div>
-      <div className="text-[14px] md:text-sm  break-all max-h-[20%] overflow-y-clip">
+      <div className="text-[14px] md:text-[11px] break-word  max-h-[60%] overflow-y-clip ">
         {repo?.description}
       </div>
     </div>
@@ -172,10 +173,10 @@ return (
       <div className="flex-center">{repo?.diskUsage} kbs</div>
       <div className="flex-center">
         <a target="_blank" href={vslink}>
-          <TheIcon Icon={SiVisualstudiocode} size={"18"} color={"black"} />
+          <TheIcon Icon={SiVisualstudiocode} size={"18"} color={""} />
         </a>
         <a target="_blank" href={repo.url}>
-          <TheIcon Icon={SiGithub} size={"18"} color={"black"} />
+          <TheIcon Icon={SiGithub} size={"18"} color={""} />
         </a>
       </div>
     </div>

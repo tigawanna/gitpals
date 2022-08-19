@@ -33,11 +33,11 @@ return (
 
 
 {from === "followers"?
-<div className='w-full  h-fit  flex-col p-2 bg-slate-200 font-sans'>
+<div className='w-full  h-fit  flex-col p-2 dark-stylefont-sans'>
 <div className='text-lg font-bold'>Followers</div>
 <Followers url={user?.followers_url} token={token} user={user} ogUser={ogUser}/>
 </div>:
-<div className='w-full  h-fit  flex-col p-2 bg-slate-200 font-sans'>
+<div className='w-full  h-fit  flex-col p-2 dark-style font-sans'>
 <div className='text-lg font-bold'>Following</div>
 <Following token={token} url={following_urls} user={user} ogUser={ogUser}/>
 </div>}

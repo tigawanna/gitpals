@@ -36,7 +36,7 @@ export const UserCard: React.FC<UserCardProps> = ({ user, token, ogUser }) => {
             alt=""
           />
 
-          <div className="text-[15px]  flex-col items-center shadow-black shadow p-3  m-2 md:max-w-[50%]">
+          <div className="text-[15px]  flex-col items-center shadow-sm shadow-black dark:shadow-white  p-3  m-2 md:max-w-[50%]">
             <div className=" text-[15px] md:text-xl font-bold  w-full">
               {user?.name}
             </div>
@@ -52,8 +52,8 @@ export const UserCard: React.FC<UserCardProps> = ({ user, token, ogUser }) => {
               setActive("followers");
               navigate("/profile", { state: { dev: user, tab: "followers" } });
             }}
-            className="text-[12px] md:text-lg w-fit h-fit hover:bg-slate-500
-             rounded.sm hover:text-white cursor-pointer p-[2px]"
+            className="text-[12px] md:text-lg w-fit h-fit hover:bg-slate-500 rounded.sm 
+            hover:text-white cursor-pointer p-[2px]   dark:hover:bg-slate-900"
             style={{
               borderBottomColor: "purple",
               borderStyle: active === "followers" ? "solid" : "none",
@@ -67,9 +67,8 @@ export const UserCard: React.FC<UserCardProps> = ({ user, token, ogUser }) => {
               {yes ? (
                 <button
                   onClick={() => unfollowThem(username, token)}
-                  className="bg-slate-600 hover:bg-slate-800 
-                  text-white hover:text-red-200 text-[12px] rounded-md 
-                  p-[4px] m-[3px] h-fit"
+                  className="bg-slate-600 hover:bg-slate-800 text-white hover:text-red-200 
+                  text-[12px] rounded-md p-[4px] m-[3px] h-fit"
                 >
                   {"Unfollow"}
                 </button>
@@ -90,7 +89,7 @@ export const UserCard: React.FC<UserCardProps> = ({ user, token, ogUser }) => {
               navigate("/profile", { state: { dev: user, tab: "following" } });
             }}
             className="text-[12px] md:text-lg w-fit h-fit rounded-sm 
-          hover:bg-slate-500 hover:text-white cursor-pointer p-[2px]"
+          hover:bg-slate-500 hover:text-white cursor-pointer p-[2px] dark:hover:bg-slate-900"
             style={{
               borderBottomColor: "purple",
               borderStyle: active === "following" ? "solid" : "none",

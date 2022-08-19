@@ -1,8 +1,6 @@
 import { ROOTREPO} from "./type";
 
 
-
-
 export const concatPages=(repo:ROOTREPO,keyword:string)=>{
 
 let totalRepos = repo.pages[0].user.repositories.edges
@@ -29,7 +27,7 @@ const final:ROOTREPO =
 pageParams:[...repo.pageParams],
 pages:[{user:user}]
 }
-// console.log("fibal list === ",final)
+//console.log("fibal list === ",final)
 return final
 }
 

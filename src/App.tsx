@@ -13,9 +13,8 @@ import TokenContext from './utils/context';
 import { ProtectedRoute } from './components/auth/PrivateRoutes';
 import { Login } from './components/auth/Login';
 import { PersonProfile } from './components/people/PersonProfile';
-import { useScreenSize, useUserSearch } from './utils/hooks';
+import { useUserSearch } from './utils/hooks';
 import { SearchBox } from './components/Shared/SearchBox';
-import { ResultsList } from './components/Shared/ResultsList';
 import { Test } from './components/test/Test';
 
 
@@ -56,16 +55,17 @@ if (query.isLoading) {
 }
 
   return (
-    <div className="h-screen w-screen scroll-bar flex-col-center">
+    <div className="h-screen w-screen scroll-bar flex-col-center dark-styles">
       <BrowserRouter basename="/gitpals">
         <TokenContext.Provider value={{ token, updateToken }}>
-          <div className="fixed top-[0px] w-[100%] z-60">
+          <div className="fixed top-[0px] w-[100%] z-50">
             <Toolbar
               user={query.data}
               updateToken={updateToken}
               token={query_token}
             />
-            <div className="h-full w-[100%] mt-[3px] flex-col-center font-normal bg-slate-50 ">
+            <div className="h-full w-[100%] mt-[3px] flex-col-center 
+            font-normal bg-slate-50 dark:bg-slate-900">
               <SearchBox
                 keyword={keyword}
                 setKeyword={setKeyword}
@@ -106,7 +106,7 @@ if (query.isLoading) {
                 }
               />
               <Route path="/login" element={<Login />} />
-              <Route path="/test" element={<Test token={query_token}/>} />
+              <Route path="/test" element={<Test/>} />
             </Routes>
           </div>
         </TokenContext.Provider>

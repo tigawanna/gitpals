@@ -12,7 +12,7 @@ token:string
 
 export const Home: React.FC<HomeProps> = ({user,token}) => {
 return (
- <div className='h-full w-full '>
+ <div className='h-full w-full'>
     <div className='w-full '>
     <UserCard user={user} token={token} ogUser={user}/>
     </div>
