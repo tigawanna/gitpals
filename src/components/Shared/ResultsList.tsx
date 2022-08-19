@@ -13,7 +13,7 @@ interface ResultsListProps {
 
 export const ResultsList: React.FC<ResultsListProps> = ({results,setKeyword}) => {
 return (
-  <div className="w-[100%] md:w-[60%] h-full flex flex-col items-center  overflow-y-scroll scroll-bar">
+  <div className="w-[100%] md:w-[60%] h-full flex flex-col items-center  overflow-y-scroll scroll-bar ">
     {results &&
       results.map((result, index) => {
         return <ResultsCard result={result} setKeyword={setKeyword} />;
@@ -44,7 +44,7 @@ return (
     onClick={()=>navigateToProfile()}
     className="w-[100%]  m-[2px] p-1 bg-slate-100 dark:bg-slate-800  rounded-lg 
     shadow-slate-600 dark:shadow-white
-  hover:bg-slate-200 dark:hover:bg-slate-900 shadow-sm flex cursor-pointer"
+  hover:bg-slate-200 dark:hover:bg-slate-900 shadow-sm flex cursor-pointer "
   >
     <img
       className="max-h-14  max-w-24  m-[2px] mr-2 rounded-[20%]"

@@ -70,7 +70,7 @@ const hasMore = extras?.pageInfo?.hasNextPage;
 return (
   <div className="min-h-fit w-full flex flex-col justify-between">
     <div
-      className="h-[10%] p-1 w-full flex-center my-5 sticky top-[50px] z-50
+      className="h-[10%] p-1 w-full flex-center my-5 sticky top-[90px] z-30
      bg-white dark:bg-slate-800 transition duration-500"
     >
       <SearchBox

@@ -58,14 +58,14 @@ if (query.isLoading) {
     <div className="h-screen w-screen scroll-bar flex-col-center dark-styles transition duration-500">
       <BrowserRouter basename="/gitpals">
         <TokenContext.Provider value={{ token, updateToken }}>
-          <div className="fixed top-[0px] w-[100%] z-50">
+          <div className="fixed top-[0px] w-[100%] z-40">
             <Toolbar
               user={query.data}
               updateToken={updateToken}
               token={query_token}
             />
             <div
-              className="h-full w-[100%] mt-[3px] flex-col-center 
+              className="h-full w-[100%] mt-[3px] flex-col-center z-40
             font-normal bg-slate-50 dark:bg-slate-900 transition duration-500"
             >
               <SearchBox
