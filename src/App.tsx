@@ -67,6 +67,8 @@ if (query.isLoading) {
               updateToken={updateToken}
               token={query_token}
             />
+          </div>
+          <div className="fixed top-[47px] w-[100%] z-40">
             <div
               className="h-full w-[100%] mt-[3px] flex-col-center z-40
             font-normal bg-slate-50 dark:bg-slate-900 transition duration-500 "

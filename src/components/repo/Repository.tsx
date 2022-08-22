@@ -69,7 +69,7 @@ console.log("query page info ==== ",extras.pageInfo)
 return (
   <div className="min-h-fit w-full flex flex-col justify-between">
     <div
-      className="h-[10%] p-1 w-full flex-center my-5 sticky top-[90px] z-30
+      className="h-[10%] p-1 w-full flex-center my-5 sticky top-[50px] z-50
      bg-white dark:bg-slate-800 transition duration-500"
     >
       <SearchBox
@@ -81,7 +81,7 @@ return (
         search_query={query}
       />
     </div>
-    <div className="w-full flex-center sticky top-[20%] z-30">
+    <div className="w-full flex-center sticky top-[15%] z-30">
       <div className="w-fit flex-center p-[2px] font-bold bg-white dark:bg-slate-900">
         {totalRepsLoaded}/{extras.totalCount}
       </div>
