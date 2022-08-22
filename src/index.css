@@ -10,6 +10,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
 }
 
 code {
@@ -29,7 +30,7 @@ code {
   @apply flex justify-evenly items-center
 }
 .scroll-bar{
-  @apply scrollbar-thin scrollbar-thumb-purple-600 scrollbar-track-gray-200
+  @apply scrollbar-thin scrollbar-thumb-purple-600 scrollbar-track-green-500
 }
 
 

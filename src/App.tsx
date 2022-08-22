@@ -55,7 +55,10 @@ if (query.isLoading) {
 }
 
   return (
-    <div className="h-screen w-screen scroll-bar flex-col-center dark-styles transition duration-500">
+    <div
+      className="h-screen w-screen   scroll-bar flex-col-center 
+    dark-styles transition duration-500 overflow-x-hidden "
+    >
       <BrowserRouter basename="/gitpals">
         <TokenContext.Provider value={{ token, updateToken }}>
           <div className="fixed top-[0px] w-[100%] z-40">
@@ -66,7 +69,7 @@ if (query.isLoading) {
             />
             <div
               className="h-full w-[100%] mt-[3px] flex-col-center z-40
-            font-normal bg-slate-50 dark:bg-slate-900 transition duration-500"
+            font-normal bg-slate-50 dark:bg-slate-900 transition duration-500 "
             >
               <SearchBox
                 keyword={keyword}

@@ -82,7 +82,7 @@ return (
         search_query={query}
       />
     </div>
-    <div className="w-full flex-center sticky top-[12%] ">
+    <div className="w-full flex-center sticky top-[17%] z-50">
       <div className="w-fit flex-center p-[2px] font-bold bg-white dark:bg-slate-900">
         {totalRepsLoaded}/{extras.totalCount}
       </div>
