@@ -12,7 +12,7 @@ export const TheIcon: React.FC<TheIconProps> = ({Icon,size,color,iconAction}) =>
 
 return (
  <div className='   p-[2px] rounded'>
-<IconContext.Provider value={{ size,color, className: "mx-[6px]" }}>
+<IconContext.Provider value={{ size,color, className: "mx-[2px]" }}>
  <Icon onClick={()=>iconAction()}/>
 </IconContext.Provider>
  </div>

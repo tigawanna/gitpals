@@ -11,7 +11,7 @@ export const Consent: React.FC<ConsentProps> = ({message,action,setOpen}) => {
 
 return (
  <div className='consent-container'>
-    <div className='consent-child'>
+    <div className='consent-child z-50'>
    <div className='h-full w-full flex flex-col'>
    <div className='h-full w-full flex flex-center text-3xl font-medium'>{message}</div>
    <div className='h-full w-full flex-evenly '>
@@ -22,7 +22,7 @@ return (
     
     <button
       onClick={()=>setOpen(false)}  
-        className='consent-button text-red-200'
+        className='consent-button text-red-500'
     >NO</button> 
  
    </div>

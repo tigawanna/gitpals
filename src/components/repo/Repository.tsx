@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
-import { RepoType } from '../../types/repo';
 import dayjs from 'dayjs';
-import { BiGitRepoForked} from "react-icons/bi";
+import { BiGitRepoForked, BiHistory } from "react-icons/bi";
 import {FiActivity} from 'react-icons/fi'
 import { SiVisualstudiocode, SiGithub } from "react-icons/si";
-import { useRepos } from './../../utils/hooks';
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { SearchBox } from '../Shared/SearchBox';
 import { TheIcon } from '../Shared/TheIcon';
@@ -12,6 +10,7 @@ import { useInfiniteGQLQuery } from './../../utils/graphql/gqlInfiniteQuery';
 import { REPOS } from './utils/query';
 import { REPONODE, REPOPAGE, ROOTREPO } from './utils/type';
 import { concatPages } from './utils/helper';
+
 
 dayjs.extend(relativeTime)
 interface RepositoryProps {
@@ -65,8 +64,8 @@ return <div className="h-full w-full  flex-center ">Loading....</div>;
 // const {repos,query} = useRepos(token,username as string,keyword.word)
 const repos = data?.pages;
 const extras = repos[repos.length - 1].user?.repositories;
-const hasMore = extras?.pageInfo?.hasNextPage;
-
+const hasMore = totalRepsLoaded !== extras?.totalCount;
+console.log("query page info ==== ",extras.pageInfo)
 return (
   <div className="min-h-fit w-full flex flex-col justify-between">
     <div
@@ -82,7 +81,7 @@ return (
         search_query={query}
       />
     </div>
-    <div className="w-full flex-center sticky top-[17%] ">
+    <div className="w-full flex-center sticky top-[20%] z-30">
       <div className="w-fit flex-center p-[2px] font-bold bg-white dark:bg-slate-900">
         {totalRepsLoaded}/{extras.totalCount}
       </div>
@@ -128,10 +127,10 @@ export const RepoCard: React.FC<RepoCardProps> = ({repo,token}) => {
 // console.log(repo.html_url)
 // const repo_link = authedurl(repo.html_url,token)
 const vslink = `https://vscode.dev/${repo.url}`;
-
+// console.log("repo node",repo)
 return (
   <div
-    className=" min-h-fit h-52 m-2 w-[95%] md:w-[40%] lg:w-[30%] p-5 flex-col 
+    className=" min-h-fit h-56 m-2 w-[95%] md:w-[40%] lg:w-[30%] p-5 flex-col 
      ustify-between items-center shadow-sm shadow-slate-300 dark:shadow-black  
  border-black border-2 rounded-md"
   >
@@ -160,8 +159,20 @@ return (
           );
         })}
       </div>
-      <div className="text-[14px] md:text-[11px] break-word  max-h-[60%] overflow-y-clip ">
+      <div className="text-[14px] md:text-[11px] break-word  max-h-[45%] overflow-y-clip ">
         {repo?.description}
+      </div>
+      <div className="w-fit max-w-full text-[15px] text-sm  font-semibold text-yellow-50 
+      flex felx-wrap bg-slate-700">
+        <TheIcon Icon={BiHistory} size={'15'} color={''} />
+        <div className="bg-slate-700 px-[2px] mr-[3px] truncate w-fit">
+          {repo?.refs?.edges[0]?.node?.name}
+        </div>{" "}
+        :
+        <div className="px-[2px] truncate">
+          {" "}
+          {repo?.refs?.edges[0]?.node?.target?.history?.edges[0]?.node?.message}
+        </div>
       </div>
     </div>
 

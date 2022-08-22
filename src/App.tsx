@@ -111,7 +111,7 @@ if (query.isLoading) {
                 }
               />
               <Route path="/login" element={<Login />} />
-              <Route path="/test" element={<Test />} />
+              <Route path="/test" element={<Test token={query_token} />} />
             </Routes>
           </div>
         </TokenContext.Provider>

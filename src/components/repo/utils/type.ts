@@ -33,6 +33,43 @@ export interface REPONODE {
   visibility: string;
   forkCount: number;
   languages: Languages;
+  refs: Refs;
+}
+
+export interface Refs {
+  edges: RefsEdge[];
+}
+
+export interface RefsEdge {
+  node: RefsNode;
+}
+
+export interface RefsNode {
+  name: string;
+  id: string;
+  target: Target;
+}
+
+export interface Target {
+  history: History;
+}
+
+export interface History {
+  edges: HistoryEdge[];
+}
+
+export interface HistoryEdge {
+  node: HistoryNode;
+}
+
+export interface HistoryNode {
+  committedDate: string;
+  author: Author;
+  message: string;
+}
+
+export interface Author {
+  name: string;
 }
 
 export interface Languages {
