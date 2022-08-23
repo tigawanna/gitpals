@@ -14,8 +14,9 @@ token:string
 export const Profile: React.FC<ProfileProps> = ({ogUser,token}) => {
 const location = useLocation();
 //@ts-ignore
-const dev = location.state?.dev as PersonRouteProps   
+const dev = location?.state?.dev 
 const user = dev as MainAuthedUser
+console.log("state ==== ", location?.state);
 console.log("dev in route ==== ",dev)
 //@ts-ignore
 const from = location?.state?.tab as string
