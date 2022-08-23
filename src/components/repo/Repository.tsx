@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import dayjs from 'dayjs';
-import { BiGitRepoForked, BiHistory } from "react-icons/bi";
+import {
+  BiGitRepoForked,
+  BiHistory,
+
+} from "react-icons/bi";
 import {FiActivity} from 'react-icons/fi'
+import { FaStar, FaLock } from "react-icons/fa";
 import { SiVisualstudiocode, SiGithub } from "react-icons/si";
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { SearchBox } from '../Shared/SearchBox';
@@ -65,7 +70,7 @@ return <div className="h-full w-full  flex-center ">Loading....</div>;
 const repos = data?.pages;
 const extras = repos[repos.length - 1].user?.repositories;
 const hasMore = totalRepsLoaded !== extras?.totalCount;
-console.log("query page info ==== ",extras.pageInfo)
+// console.log("query page info ==== ",extras.pageInfo)
 return (
   <div className="min-h-fit w-full flex flex-col justify-between">
     <div
@@ -162,9 +167,11 @@ return (
       <div className="text-[14px] md:text-[11px] break-word  max-h-[45%] overflow-y-clip ">
         {repo?.description}
       </div>
-      <div className="w-fit max-w-full text-[15px] text-sm  font-semibold text-yellow-50 
-      flex felx-wrap bg-slate-700">
-        <TheIcon Icon={BiHistory} size={'15'} color={''} />
+      <div
+        className="w-fit max-w-full text-[15px] text-sm  font-semibold text-yellow-50 
+      flex felx-wrap bg-slate-700"
+      >
+        <TheIcon Icon={BiHistory} size={"15"} color={""} />
         <div className="bg-slate-700 px-[2px] mr-[3px] truncate w-fit">
           {repo?.refs?.edges[0]?.node?.name}
         </div>{" "}
@@ -183,7 +190,17 @@ return (
       <div className="flex-center">
         <BiGitRepoForked /> {repo?.forkCount}
       </div>
-      <div className="flex-center">{repo?.visibility}</div>
+      {repo?.stargazers?.totalCount > 0 ? (
+        <div className="flex-center">
+          <TheIcon Icon={FaStar} size={""} color={"yellow"} />{" "}
+          {repo?.stargazers?.totalCount}
+        </div>
+      ) : null}
+     { repo?.visibility === "PRIVATE" ? 
+      <div className="flex-center">
+      <TheIcon Icon={FaLock} size={""} color={"red"} />
+      </div>:null }
+
       <div className="flex-center">{repo?.diskUsage} kbs</div>
       <div className="flex-center">
         <a target="_blank" href={vslink}>

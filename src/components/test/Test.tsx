@@ -15,7 +15,7 @@ export const Test: React.FC<TestProps> = ({token}) => {
         REPOS,
         {
           name: username,
-          first: 25,
+          first: 5,
           after: null,
         },
         {

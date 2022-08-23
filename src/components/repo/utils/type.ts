@@ -34,6 +34,7 @@ export interface REPONODE {
   forkCount: number;
   languages: Languages;
   refs: Refs;
+  stargazers: { totalCount: number};
 }
 
 export interface Refs {

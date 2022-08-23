@@ -5,7 +5,7 @@ interface TheIconProps {
   Icon: IconType;
   size: string;
   color: string;
-  iconAction?:any
+  iconAction?:()=>any
 }
 
 export const TheIcon: React.FC<TheIconProps> = ({Icon,size,color,iconAction}) => {
@@ -13,7 +13,7 @@ export const TheIcon: React.FC<TheIconProps> = ({Icon,size,color,iconAction}) =>
 return (
  <div className='   p-[2px] rounded'>
 <IconContext.Provider value={{ size,color, className: "mx-[2px]" }}>
- <Icon onClick={()=>iconAction()}/>
+ <Icon onClick={()=>iconAction&&iconAction()}/>
 </IconContext.Provider>
  </div>
 );

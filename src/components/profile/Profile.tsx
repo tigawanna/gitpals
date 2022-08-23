@@ -16,6 +16,7 @@ const location = useLocation();
 //@ts-ignore
 const dev = location.state?.dev as PersonRouteProps   
 const user = dev as MainAuthedUser
+console.log("dev in route ==== ",dev)
 //@ts-ignore
 const from = location?.state?.tab as string
 
